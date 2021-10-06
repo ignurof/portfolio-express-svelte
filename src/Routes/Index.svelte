@@ -7,14 +7,14 @@
     export let a;
     // As this
     let { b } = payload.get();
+
+    import Navbar from "../Components/Navbar.svelte";
 </script>
 
 <style>
 </style>
 
-<nav>
-    Hello World
-</nav>
+<Navbar/>
 
 <Example/>
 <p>Prop A is: {a}</p>
