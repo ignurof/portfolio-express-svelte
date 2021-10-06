@@ -12,6 +12,10 @@
 <style>
 </style>
 
+<nav>
+    Navbar bro
+</nav>
+
 <Example/>
 <p>Prop A is: {a}</p>
 <p>Prop B is: {b}</p>

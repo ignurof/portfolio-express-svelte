@@ -1,10 +1,9 @@
-
 <!doctype html>
 <html lang="en">
 	<head>
 		${head}
 		<style>
-			${include ./build/global.css}
+			${include ../build/global.css}
 			
 			${css}
 		</style>
