@@ -3,7 +3,7 @@
 	<head>
 		${head}
 		<style>
-			${include ../build/global.css}
+			${include ../assets/global.css}
 			
 			${css}
 		</style>
