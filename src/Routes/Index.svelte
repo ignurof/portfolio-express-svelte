@@ -10,9 +10,14 @@
 
     import Navbar from "../Components/Navbar.svelte";
 
+    import About from "../Components/About.svelte";
+
     // This is also found in Navbar.svelte, 
     // so when I pass this exported var like this: <Navbar {coolQuote} /> it means I can use component nested exported var on the router in server.js
     export let coolQuote;
+
+    // Found in About.svelte
+    export let about;
 
     // CSS NOTES
     /*
@@ -36,4 +41,5 @@
     <Navbar {coolQuote}/>
 
     <h2>About me</h2>
+    <About {about}/>
 </main>
