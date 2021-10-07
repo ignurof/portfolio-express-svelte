@@ -2,6 +2,9 @@ const express = require("express");
 const svelteViewEngine = require("svelte-view-engine");
 const config = require("../config");
 
+// For the site
+const GetQuote = require("./quotegenerator.js");
+
 let app = express();
 let engine = svelteViewEngine(config.svelteViewEngine);
 let { dir, type, buildDir } = config.svelteViewEngine;
@@ -23,7 +26,7 @@ app.get("/", (req, res, next) => {
     res.render("Index", {
         a: 1,
         b: 2,
-        coolQuote: "hello world",
+        coolQuote: GetQuote(),
     });
 });
 

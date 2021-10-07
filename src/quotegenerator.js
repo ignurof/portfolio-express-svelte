@@ -14,6 +14,7 @@ const GetQuote = async() => {
 
     // Successfull early returns means we should not end up here
     console.error("Something went wrong with the coolQuote request");
+    return "error coolQuote";
 }
 
 module.exports = GetQuote;
