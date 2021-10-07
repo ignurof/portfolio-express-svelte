@@ -11,6 +11,16 @@
         flex-direction: column;
         text-align: center;
     }
+
+    h1{
+        font-size: 6em;
+    }
+
+    p{
+        font-size: 3em;
+        padding: 0;
+        margin: 0;
+    }
 </style>
 
 <nav>
