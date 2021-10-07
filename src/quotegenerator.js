@@ -1,15 +1,14 @@
-
+const request = require('request');
 
 // Fetches all public scrapped quotes from Kanye using https://api.kanye.rest/ { quote: "text" }
 
 // Asyncronous method constant
 const GetQuote = async() => {
-    let response = await fetch("https://api.kanye.rest/");
-    let data = await response.json();
-
-    console.log(data);
-
-    return "cool quote bro";
+    request('https://api.kanye.rest/', { json: true }, (err, res, body) => {
+        if (err) { return console.log(err); }
+        console.log(body.url);
+        console.log(body.explanation);
+    });
 }
 
 module.exports = GetQuote;
