@@ -3,7 +3,7 @@ const svelteViewEngine = require("svelte-view-engine");
 const config = require("../config");
 
 // For the site
-const GetQuote = require("./quotegenerator.js");
+const quotegenerator = require("./quotegenerator.js");
 
 let app = express();
 let engine = svelteViewEngine(config.svelteViewEngine);
@@ -23,14 +23,18 @@ app.get("/", (req, res, next) => {
      * props can be fetched upon request, they'll
      * be SSR'd on the fly!
      */
+
     res.render("Index", {
         a: 1,
         b: 2,
-        coolQuote: "text here",
+        coolQuote: quotegenerator.TheQuote(),
     });
 });
 
 // Listen to requests
 app.listen(config.port, () => {
     console.log("Server started on port http://localhost:" + config.port);
+
+    // Run the quotegenerator
+    quotegenerator.GetQuote();
 });
