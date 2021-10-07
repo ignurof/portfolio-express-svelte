@@ -30,16 +30,10 @@
         display: grid;
         grid-template-columns: 1fr;
     }
-
-    h2{
-        font-size: 6em;
-        margin: 1em auto;
-    }
 </style>
 
 <main>
     <Navbar {coolQuote}/>
 
-    <h2>About me</h2>
     <About {about}/>
 </main>
