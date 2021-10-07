@@ -9,6 +9,8 @@
     //let { b } = payload.get();
 
     import Navbar from "../Components/Navbar.svelte";
+
+    export { coolQuote } from "../Components/Navbar.svelte";
 </script>
 
 <style>
