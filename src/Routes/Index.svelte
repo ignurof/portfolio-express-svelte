@@ -14,10 +14,9 @@
 <style>
 </style>
 
-<Navbar/>
+<main>
+    <Navbar/>
 
-
-<p>Prop A is: {a}</p>
-<p>Prop B is: {b}</p>
-
-<p>Hejsan</p>
+    <p>Prop A is: {a}</p>
+    <p>Hejsan</p>
+</main>
