@@ -8,9 +8,9 @@
     // As this
     //let { b } = payload.get();
 
-    import Navbar from "../Components/Navbar.svelte";
+    import Navbar from "../components/navbar.svelte";
 
-    import About from "../Components/About.svelte";
+    import About from "../components/about.svelte";
 
     // This is also found in Navbar.svelte, 
     // so when I pass this exported var like this: <Navbar {coolQuote} /> it means I can use component nested exported var on the router in server.js

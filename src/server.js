@@ -25,7 +25,7 @@ app.get("/", (req, res, next) => {
      * be SSR'd on the fly!
      */
 
-    res.render("Index", {
+    res.render("index", {
         a: 1,
         b: 2,
         coolQuote: quotegenerator.TheQuote(),
