@@ -6,3 +6,8 @@ body{
 nav{
     color: red;
 }
+
+main{
+    display: grid;
+    grid-template-columns: 1fr;
+}
