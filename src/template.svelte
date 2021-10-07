@@ -4,7 +4,7 @@
 		${head}
 		<link rel="stylesheet" href="${cssPath}">
 	</head>
-	<body>
+	<body style="margin:0;padding:0;">
 		${html}
 		<script src="${jsPath}"></script>
 		<script>
