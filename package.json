@@ -19,7 +19,6 @@
   "homepage": "https://github.com/ignurof/portfolio-express-svelte#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "request": "^2.88.2",
     "svelte": "^3.43.1",
     "svelte-view-engine": "^14.12.6"
   }
