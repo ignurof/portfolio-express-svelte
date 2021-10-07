@@ -2,23 +2,18 @@
 <html lang="en">
 	<head>
 		${head}
-		<style>
-			${include ../assets/global.css}
-			
-			${css}
-		</style>
+		<link rel="stylesheet" href="${cssPath}">
 	</head>
 	<body>
 		${html}
+		<script src="${jsPath}"></script>
 		<script>
 			props = ${props};
 			
-			${js}
-			
 			new ${name}({
 				target: document.body,
-				props: props,
-				hydrate: true
+				hydrate: true,
+				props: props
 			});
 		</script>
 	</body>
