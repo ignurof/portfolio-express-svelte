@@ -6,10 +6,4 @@ body{
 main{
     display: grid;
     grid-template-columns: 1fr;
-
-    nav{
-        color: red;
-        display: flex;
-        flex-direction: column;
-    }
 }
