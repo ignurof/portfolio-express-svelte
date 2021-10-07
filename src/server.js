@@ -23,6 +23,7 @@ app.get("/", (req, res, next) => {
     res.render("Index", {
         a: 1,
         b: 2,
+        coolQuote: "hello world",
     });
 });
 
