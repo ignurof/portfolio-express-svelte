@@ -4,7 +4,7 @@ const config = require("../config");
 
 // For the site
 const quotegenerator = require("./quotegenerator.js");
-const InitAboutContent = require("./aboutcontent.js");
+const aboutcontent = require("./aboutcontent.js");
 
 let app = express();
 let engine = svelteViewEngine(config.svelteViewEngine);
@@ -29,6 +29,7 @@ app.get("/", (req, res, next) => {
         a: 1,
         b: 2,
         coolQuote: quotegenerator.TheQuote(),
+        about: aboutcontent.GetAboutText(),
     });
 });
 
@@ -40,5 +41,5 @@ app.listen(config.port, () => {
     quotegenerator.GetQuote();
 
     // init about file if needed
-    InitAboutContent();
+    aboutcontent.InitAboutContent();
 });

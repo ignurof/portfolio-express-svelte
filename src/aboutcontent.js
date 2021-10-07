@@ -3,12 +3,17 @@ const fs = require("fs");
 // The value we will reference in the Index page
 let aboutText = "default string here";
 
+const GetAboutText = () => {
+    return aboutText;
+}
+
 const InitAboutContent = () => {
     // Check if file exist
     fs.stat("assets/about.json", (err, stat) => {
         if(err == null){
             // If file exist return early
-            return;
+            console.log("Found about.json file");
+            ReadAboutJSON();
         } else if(err.code === "ENOENT"){
             // If file does not exist
             console.error("There was not about.json file");
@@ -37,4 +42,18 @@ const CreateAboutJSON = () => {
     });
 }
 
-module.exports = InitAboutContent;
+const ReadAboutJSON = () => {
+    fs.readFile("assets/about.json", (err, data) => {
+        if(err) { return console.error("Read file not working"); }
+        // Parse the JSON string back into an JSON object
+        data = JSON.parse(data);
+
+        // { content: "hello, world!" }
+        aboutText = data.content;
+    });
+}
+
+module.exports = {
+    InitAboutContent,
+    GetAboutText
+};
