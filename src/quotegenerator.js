@@ -1,5 +1,4 @@
-import { response } from "express";
-import fetch from "node-fetch";
+
 
 // Fetches all public scrapped quotes from Kanye using https://api.kanye.rest/ { quote: "text" }
 
@@ -9,6 +8,8 @@ const GetQuote = async() => {
     let data = await response.json();
 
     console.log(data);
+
+    return "cool quote bro";
 }
 
 module.exports = GetQuote;
