@@ -6,7 +6,6 @@
 
 <style>
     nav{
-        color: red;
         display: flex;
         flex-direction: column;
         text-align: center;
@@ -14,7 +13,6 @@
 
     h1{
         font-size: 8em;
-        margin-bottom: 0.5em;
     }
 
     p{
