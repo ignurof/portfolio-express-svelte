@@ -9,7 +9,9 @@
 </script>
 
 <style>
-
+    legend{
+        color: blueviolet;
+    }
 </style>
 
 <h2>About</h2>
