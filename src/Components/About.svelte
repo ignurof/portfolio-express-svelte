@@ -6,6 +6,7 @@
     p{
         width: 60%;
         margin: 1em auto;
+        font-size: 2em;
     }
 </style>
 
