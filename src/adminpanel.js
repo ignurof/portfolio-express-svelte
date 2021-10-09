@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const aboutcontent = require("./aboutcontent.js");
+
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
     console.log('Ran the Adminpanel router @ Time: ', Date.now())
@@ -19,7 +21,9 @@ router.get('/', function (req, res) {
 // Here I can grab :content like a regular param, very nice
 router.post('/about/:content', function (req, res) {
     console.log(req.params.content);
-    res.send("Gotte the about request maddafakka");
+    aboutcontent.EditAboutContent(req.params.content);
+    // Send it back so frontend can do something with it
+    res.send(req.params.content);
 });
   
 module.exports = router;

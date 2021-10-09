@@ -1,13 +1,8 @@
 <script>
-import About from "../about.svelte";
-
-    
-    let contentString = "aboutadmin default value";
-
-    export let aboutText;
+    // Turning context to module makes everything inside the aboutadmin.svelte with export tag to also be exported
+    export let aboutText = "default text";
 
     const UpdateContent = async() => {
-        aboutText = contentString;
         // Here I send the aboutText string as an Express param instead
         // I can do this and then grab it with req.params.paramName
         let apiUrl = "http://localhost:3000/admin/about/" + aboutText;
@@ -17,7 +12,7 @@ import About from "../about.svelte";
             // Adding method type
             method: "POST",
             // Adding body or contents to send and turn from JSON object to JSON string
-            /* This would be used in other cases
+            /* This
             body: JSON.stringify({
                 content: aboutText,
             }),*/
@@ -36,6 +31,10 @@ import About from "../about.svelte";
             console.log("Connection error: " + request.status);
         }
     }
+
+    // Reactivity ( $: aboutText, UpdateContent(); )
+    // Doing this instead to only update with the button
+    $: aboutText;
 </script>
 
 <style>
@@ -46,5 +45,6 @@ import About from "../about.svelte";
 
 <h2>About</h2>
 <legend>Update the content text here:</legend>
-<input type="text" value={contentString} />
+<!-- bind:value directly instead of a button with on:click={Function}-->
+<input type="text" bind:value={aboutText} />
 <button on:click={UpdateContent}>Update</button>

@@ -12,7 +12,8 @@ const EditAboutContent = (inputText) => {
 
     // Update values
     aboutText = inputText;
-    console.log(aboutText);
+
+    UpdateAboutJSON(aboutText);
 }
 
 const InitAboutContent = () => {
@@ -34,15 +35,8 @@ const InitAboutContent = () => {
 }
 
 const CreateAboutJSON = () => {
-    let aboutJSON = {
-        "content": "hello, world!"
-    };
-
-    // Convert JSON object into JSON string
-    let data = JSON.stringify(aboutJSON);
-
     // Seems like fs check from root so the filepath needs to be like this
-    fs.writeFile("assets/about.json", data, (err) => {
+    fs.writeFile("assets/about.json", aboutText, (err) => {
         if(err) { return console.error("Write file error occured"); }
 
         // Debug logging
@@ -53,11 +47,17 @@ const CreateAboutJSON = () => {
 const ReadAboutJSON = () => {
     fs.readFile("assets/about.json", (err, data) => {
         if(err) { return console.error("Read file not working"); }
-        // Parse the JSON string back into an JSON object
-        data = JSON.parse(data);
 
-        // { content: "hello, world!" }
-        aboutText = data.content;
+        // Read back the string
+        aboutText = data;
+    });
+}
+
+const UpdateAboutJSON = (input) => {
+    fs.writeFile("assets/about.json", input, (err) => {
+        if(err) { return console.error("Write file error on UpdateAboutJSON"); }
+
+        console.log("updated about.json");
     });
 }
 
