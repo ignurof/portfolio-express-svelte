@@ -1,5 +1,5 @@
 <script>
-    const aboutcontent = require(__dirname + "src/aboutcontent.js");
+    const aboutcontent = require("../../aboutcontent.js");
     
     let contentString = "aboutadmin default value";
 

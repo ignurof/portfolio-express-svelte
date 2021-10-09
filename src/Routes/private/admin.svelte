@@ -1,5 +1,5 @@
 <script>
-    import Aboutadmin from ".../components/private/aboutadmin.svelte";
+    import Aboutadmin from "../../components/private/aboutadmin.svelte";
 </script>
 
 <style>
