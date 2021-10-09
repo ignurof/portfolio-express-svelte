@@ -7,6 +7,14 @@ const GetAboutText = () => {
     return aboutText;
 }
 
+const EditAboutContent = (inputText) => {
+    // Sanitize input
+
+    // Update values
+    aboutText = inputText;
+    console.log(aboutText);
+}
+
 const InitAboutContent = () => {
     // Check if file exist
     fs.stat("assets/about.json", (err, stat) => {
@@ -55,5 +63,6 @@ const ReadAboutJSON = () => {
 
 module.exports = {
     InitAboutContent,
-    GetAboutText
+    GetAboutText,
+    EditAboutContent
 };

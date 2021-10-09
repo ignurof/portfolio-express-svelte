@@ -17,6 +17,13 @@ app.set("views", dir);
 // Change this to fit your static content (Images, etc.)
 app.use("/assets", express.static(buildDir));
 
+//Admin - placed above the index.get because it should take priority
+app.get("/about", (req, res, next) => {
+    res.render("private/admin.svelte", {
+        // Props here
+    });
+});
+
 // Render the response with props before responding
 app.get("/", (req, res, next) => {
     /**
