@@ -3,6 +3,9 @@
 	<head>
 		${head}
 		<link rel="stylesheet" href="${cssPath}">
+		<style>
+            ${include ../build/global.css}
+        </style>
 	</head>
 	<body style="margin:0;padding:0;">
 		${html}
