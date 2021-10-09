@@ -13,12 +13,13 @@
 
     h1{
         font-size: 8em;
+        margin-bottom: .25em;
     }
 
     p{
-        font-size: 2em;
-        margin: 0 auto;
+        margin: 1em auto;
         width: 50%;
+        font-size: 2em;
     }
 </style>
 
