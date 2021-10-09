@@ -1,10 +1,10 @@
 <script>
-    const aboutcontent = require("../../aboutcontent.js");
+    import { EditAboutContent } from "../../aboutcontent.js";
     
     let contentString = "aboutadmin default value";
 
     const UpdateContent = () => {
-        aboutcontent.EditAboutContent(contentString);
+        EditAboutContent(contentString);
     }
 </script>
 
