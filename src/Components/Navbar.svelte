@@ -12,14 +12,14 @@
     }
 
     h1{
-        font-size: 8em;
         margin-bottom: .1em;
+        font-size: 4em;
     }
 
     p{
         margin: 0 auto 4em;
         width: 50%;
-        font-size: 1.2em;
+        font-size: .8em;
     }
 </style>
 
