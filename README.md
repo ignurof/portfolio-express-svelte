@@ -1,7 +1,6 @@
 # portfolio-express-svelte
 
 ## Setup instructions
-- npm init -y
 - npm i express
 - npm i svelte-view-engine
 - npm i svelte
