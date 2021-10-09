@@ -6,6 +6,8 @@ const config = require("../config");
 const quotegenerator = require("./quotegenerator.js");
 const aboutcontent = require("./aboutcontent.js");
 
+const adminpanel = require("./adminpanel.js");
+
 let app = express();
 let engine = svelteViewEngine(config.svelteViewEngine);
 let { dir, type, buildDir } = config.svelteViewEngine;
@@ -31,12 +33,8 @@ app.get("/", (req, res, next) => {
     });
 });
 
-// TODO: Admin endpoint
-app.get("/about", (req, res, next) => {
-    res.render("private/admin", {
-        // Props here
-    });
-});
+// TODO: Admin endpoint using express.Router found in adminpanel.js
+app.use("/admin", adminpanel);
 
 // Listen to requests
 app.listen(config.port, () => {
