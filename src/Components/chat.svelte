@@ -1,5 +1,5 @@
 <script>
-    let inputValue;
+    let inputValue = "";
 
     // Export this and fill it in server.js using chathistory.js
     export let chatLog = [];
@@ -12,20 +12,24 @@
         let currentTime = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
         let time = date + "|" + currentTime;
 
-        let chatMsg = time + ": " + inputValue;
-        let apiUrl = "http://localhost:3000/chat/" + chatMsg;
-        // Send POST
+        let chatMsg = {
+            time,
+            inputValue
+        };
+        
+        let apiUrl = "http://localhost:3000/chat/" + JSON.stringify(chatMsg);
+        // Send JSON string as params using POST
         let request = await fetch(apiUrl, {
             method: "POST",
             headers: {
-                "Content-Type": "charset=UTF-8"
+                "Content-Type": "application/json"
             }
         });
         // Status check
         if(request.ok){
-            let response = await request.text();
+            let response = await request.json();
             // Update chatlog on client
-            UpdateChatLog(response);
+            UpdateChatLog(response.inputValue);
         } else {
             console.error("Something went wrong with chat update");
         }
@@ -33,10 +37,11 @@
 
     // Updates the chatbox with a new message
     const UpdateChatLog = (msg) => {
-        // Reset output so it doesnt just keep adding more and more onto it on the client side
-        outputChatText = "";
-
+        // Get new chat
         ReactiveChat();
+
+        // Reset old
+        outputChatText = "";
 
         chatLog.push(msg);
 

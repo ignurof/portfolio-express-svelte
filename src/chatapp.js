@@ -21,12 +21,13 @@ router.post("/:message", (req, res, next) => {
     // Get the param
     console.log(req.params.message);
     // TODO: Sanitize data
+    let parsedJSON = JSON.parse(req.params.message);
     
     // Update some array that will be used to store previous messages on server and render it on the page on og route
-    chathistory.UpdateChatHistory(req.params.message);
+    chathistory.UpdateChatHistory(parsedJSON.inputValue);
     // Use socket.io to send realtime message
     // Send it back so client also can update
-    res.send(req.params.message);
+    res.send(parsedJSON);
     //res.sendStatus(200); cannot set headers after they are sent to the client error
 });
 
