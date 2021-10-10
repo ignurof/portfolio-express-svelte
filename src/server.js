@@ -33,6 +33,7 @@ app.get("/", (req, res, next) => {
     });
 });
 
+// I just assume this should go below in the order, figure this out in the future bruv
 // TODO: Admin endpoint using express.Router found in adminpanel.js
 app.use("/admin", adminpanel);
 
