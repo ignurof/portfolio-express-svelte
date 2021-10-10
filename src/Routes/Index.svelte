@@ -22,7 +22,7 @@
     export let about;
 
     // Chat.svelte
-    export let chatLog = [];
+    export let chatLog;
 
     // CSS NOTES
     /*
