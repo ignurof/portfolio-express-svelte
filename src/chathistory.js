@@ -5,6 +5,7 @@ const fs = require("fs");
 let chatJSON = {
     "chatHistory": [""]
 }
+// The chatLog is a string composed of all the indexes in the chatHistory array
 let chatLog = "";
 
 // Returns the chatLog string, used in server.js to render the values onto page
@@ -33,9 +34,12 @@ const UpdateChatHistory = (newChatLog) => {
 }
 
 const OverwriteChatJSON = (inputHistory) => {
+    // Take the input param and feed it into the chatHistory by overwriting it
     chatJSON.chatHistory = inputHistory;
+    // Convert from JSON Object to JSON string
     let data = JSON.stringify(chatJSON);
 
+    // Overwrites the file with new data
     fs.writeFile("assets/chat.json", data, (err) => {
         if(err) { return console.error("Could not write to chat file"); }
 
@@ -44,8 +48,10 @@ const OverwriteChatJSON = (inputHistory) => {
 }
 
 const CreateChatJSON = () => {
+    // Take current chatHistory JSON Object and stringify into data
     let data = JSON.stringify(chatJSON);
 
+    // Create file
     fs.writeFile("assets/chat.json", data, (err) => {
         if(err) { return console.error("Could not write to chat file"); }
 
@@ -57,10 +63,12 @@ const ReadChatJSON = () => {
     fs.readFile("assets/chat.json", (err, data) => {
         if(err) { return console.error("Could not read to chat file"); }
 
+        // Converts back from string into JSON Object
         data = JSON.parse(data);
 
+        // Update chatHistory values with data
         chatJSON.chatHistory = data.chatHistory;
-        // Need to make sure the var is updated when server is booted or file is read
+        // Need to make sure the chatLog string is updated when server is booted or file is read
         UpdateChatLog();
     });
 }
