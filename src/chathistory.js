@@ -19,6 +19,12 @@ const UpdateChatLog = () => {
 
     // Iterate over each item in history and add that to the chatLog string
     chatJSON.chatHistory.forEach(element => {
+        // Fix for the first empty index that creates a whitespace in the top of chatbox
+        // TODO: Gör så att online status kollas ifall jag är aktiv på admin sidan?
+        if(element === "") {
+            element = "<div style='color: #8c6f51; margin: 0 auto; width: 50%; text-align: center;'>Ignurof is currently <span style='color: red;'>OFFLINE</span></div>"; 
+        }
+
         chatLog += element + "<br />";
     });
 }
