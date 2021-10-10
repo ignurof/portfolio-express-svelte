@@ -5,7 +5,12 @@
     export let chatLog;
 
     const UpdateChat = async() => {
-        let chatMsg = "Timestamp: " + inputValue;
+        let currentDate = new Date();
+        let date = currentDate.getFullYear() + "-" + currentDate.getDate() + "-" + currentDate.getMonth();
+        let currentTime = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+        let time = date + "|" + currentTime;
+
+        let chatMsg = time + ": " + inputValue;
         let apiUrl = "http://localhost:3000/chat/" + chatMsg;
         // Send POST
         let request = await fetch(apiUrl, {
@@ -14,6 +19,21 @@
                 "Content-Type": "charset=UTF-8"
             }
         });
+        // Status check
+        if(request.ok){
+            let response = await request.text();
+            // Update chatlog on client
+            chatLog = response;
+        } else {
+            console.error("Something went wrong with chat update");
+        }
+    }
+
+    // Updates chat
+    const ReactiveChat = async() => {
+        let apiUrl = "http://localhost:3000/chat";
+        // Send GET
+        let request = await fetch(apiUrl);
         // Status check
         if(request.ok){
             let response = await request.text();

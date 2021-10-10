@@ -9,6 +9,10 @@ router.use(function timeLog (req, res, next) {
     next();
 });
 
+router.get("/", (req, res, next) => {
+    res.send(chathistory.GetChatLog());
+});
+
 // Watch for incoming POST requests on this router
 router.post("/:message", (req, res, next) => {
     // Get the param
