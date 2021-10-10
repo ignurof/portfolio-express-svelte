@@ -5,17 +5,10 @@ const fs = require("fs");
 let chatJSON = {
     "chatHistory": [""]
 }
-// The chatLog is a string composed of all the indexes in the chatHistory array
-let chatLog = "";
 
-// Returns the chatLog string, used in server.js to render the values onto page
-const GetChatLog = () => {
-    return chatLog;
-}
-
-const UpdateChatLog = () => {
-    // Reset chatlog on update so it doesnt just keep adding onto it
-    chatLog = "";
+// This is a frontend method that im also using here to do the template SSR
+const GetChatText = () => {
+    let text = "";
 
     // Iterate over each item in history and add that to the chatLog string
     chatJSON.chatHistory.forEach(element => {
@@ -25,15 +18,19 @@ const UpdateChatLog = () => {
             element = "<div style='color: #8c6f51; margin: 0 auto; width: 50%; text-align: center;'>Ignurof is currently <span style='color: red;'>OFFLINE</span></div>"; 
         }
 
-        chatLog += element + "<br />";
+        text += element + "<br />";
     });
+
+    return text;
+}
+
+const GetChatHistory = () => {
+    return chatJSON.chatHistory;
 }
 
 const UpdateChatHistory = (newChatLog) => {
     // Append to list
     chatJSON.chatHistory.push(newChatLog);
-    // Then make sure to update the chatLog string that gets read by server
-    UpdateChatLog();
 
     // Overwrite current file and use the server var chatHistory as reference
     OverwriteChatJSON(chatJSON.chatHistory);
@@ -74,8 +71,6 @@ const ReadChatJSON = () => {
 
         // Update chatHistory values with data
         chatJSON.chatHistory = data.chatHistory;
-        // Need to make sure the chatLog string is updated when server is booted or file is read
-        UpdateChatLog();
     });
 }
 
@@ -99,6 +94,7 @@ const InitChatJSON = () => {
 
 module.exports = {
     UpdateChatHistory,
-    GetChatLog,
-    InitChatJSON
+    GetChatHistory,
+    InitChatJSON,
+    GetChatText
 };

@@ -23,6 +23,7 @@
 
     // Chat.svelte
     export let chatLog;
+    export let outputChatText;
 
     // CSS NOTES
     /*
@@ -42,5 +43,5 @@
 
     <About {about}/>
 
-    <Chat {chatLog}/>
+    <Chat {chatLog}{outputChatText}/>
 </main>

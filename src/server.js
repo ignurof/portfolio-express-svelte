@@ -33,7 +33,8 @@ app.get("/", (req, res, next) => {
     res.render("index", {
         coolQuote: quotegenerator.TheQuote(),
         about: aboutcontent.GetAboutText(),
-        chatLog: chathistory.GetChatLog(),
+        chatLog: chathistory.GetChatHistory(),
+        outputChatText: chathistory.GetChatText(),
     });
 });
 

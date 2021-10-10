@@ -1,10 +1,12 @@
 <script>
     let inputValue;
 
-    // Export this and fill it in server.js
-    export let chatLog;
+    // Export this and fill it in server.js using chathistory.js
+    export let chatLog = [];
+    // This will take all the indices of chatLog array and generate proper html
+    export let outputChatText;
 
-    const UpdateChat = async() => {
+    const SendChatMessage = async() => {
         let currentDate = new Date();
         let date = currentDate.getFullYear() + "-" + currentDate.getDate() + "-" + currentDate.getMonth();
         let currentTime = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
@@ -23,42 +25,51 @@
         if(request.ok){
             let response = await request.text();
             // Update chatlog on client
-            chatLog = response;
+            UpdateChatLog(response);
         } else {
             console.error("Something went wrong with chat update");
         }
     }
 
+    // Updates the chatbox with a new message
+    const UpdateChatLog = (msg) => {
+        // Reset output so it doesnt just keep adding more and more onto it on the client side
+        outputChatText = "";
+
+        ReactiveChat();
+
+        chatLog.push(msg);
+
+        // Iterate over each item in history and add that to the chatLog string
+        chatLog.forEach(element => {
+            // Fix for the first empty index that creates a whitespace in the top of chatbox
+            // TODO: Gör så att online status kollas ifall jag är aktiv på admin sidan?
+            if(element === "") {
+                element = "<div style='color: #8c6f51; margin: 0 auto; width: 50%; text-align: center;'>Ignurof is currently <span style='color: red;'>OFFLINE</span></div>"; 
+            }
+
+            outputChatText += element + "<br />";
+        });
+    }
+
     // Updates chat
-    /*
     const ReactiveChat = async() => {
         let apiUrl = "http://localhost:3000/chat";
         // Send GET
         let request = await fetch(apiUrl);
         // Status check
         if(request.ok){
-            let response = await request.text();
+            let response = await request.json();
             // Update chatlog on client
-            chatLog = response;
+            chatLog = response.chatHistory;
         } else {
             console.error("Something went wrong with chat update");
         }
-    }*/
-
-    const AddChatMessage = () => {
-        chatLog = chatLog;
     }
-
-    // Realtime chat
-    import io from "../../node_modules/socket.io";
-
-    const socket = io();
-
-    socket.on("message", AddChatMessage);
 
     // Reactivity
     $: inputValue;
-    $: chatLog;
+    $: outputChatText;
 </script>
 
 <style>
@@ -82,8 +93,8 @@
 
 <h2>Chat with Ignurof</h2>
 
-<div class="chatlog" readonly contenteditable="true" bind:innerHTML={chatLog}>
+<div class="chatlog" readonly contenteditable="true" bind:innerHTML={outputChatText}>
 </div>
 
 <textarea rows="4" columns="42" bind:value={inputValue} />
-<button on:click={UpdateChat}>Send</button>
+<button on:click={SendChatMessage}>Send</button>

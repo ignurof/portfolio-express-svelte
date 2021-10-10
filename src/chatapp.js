@@ -1,11 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const app = express();
-
-// Socket IO - Realtime chat
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
 
 const chathistory = require("./chathistory.js");
 
@@ -15,14 +10,10 @@ router.use(function timeLog (req, res, next) {
     next();
 });
 
-// Realtime chat
-io.on("connection", () => {
-    console.log("User has connected to live chat");
-});
 
 router.get("/", (req, res, next) => {
     // Send the active chatLog back to the client
-    res.send(chathistory.GetChatLog());
+    res.send(chathistory.GetChatHistory());
 });
 
 // Watch for incoming POST requests on this router
@@ -34,8 +25,9 @@ router.post("/:message", (req, res, next) => {
     // Update some array that will be used to store previous messages on server and render it on the page on og route
     chathistory.UpdateChatHistory(req.params.message);
     // Use socket.io to send realtime message
-    io.emit("message", chathistory.GetChatLog())
-    res.sendStatus(200);
+    // Send it back so client also can update
+    res.send(req.params.message);
+    //res.sendStatus(200); cannot set headers after they are sent to the client error
 });
 
 module.exports = router;
