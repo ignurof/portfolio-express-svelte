@@ -40,7 +40,7 @@ const CreateAboutJSON = () => {
         if(err) { return console.error("Write file error occured"); }
 
         // Debug logging
-        console.log(data);
+        console.log(aboutText);
     });
 }
 
