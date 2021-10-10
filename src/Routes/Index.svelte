@@ -21,6 +21,9 @@
     // Found in About.svelte
     export let about;
 
+    // Chat.svelte
+    export let chatLog = [];
+
     // CSS NOTES
     /*
         margin: 0 auto = margin: 0 auto auto 0. bottom, left, right, top
@@ -39,5 +42,5 @@
 
     <About {about}/>
 
-    <Chat />
+    <Chat {chatLog}/>
 </main>

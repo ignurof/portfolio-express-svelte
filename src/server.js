@@ -5,6 +5,7 @@ const config = require("../config");
 // For the site
 const quotegenerator = require("./quotegenerator.js");
 const aboutcontent = require("./aboutcontent.js");
+const chathistory = require("./chathistory.js");
 
 // Router
 const adminpanel = require("./adminpanel.js");
@@ -32,6 +33,7 @@ app.get("/", (req, res, next) => {
     res.render("index", {
         coolQuote: quotegenerator.TheQuote(),
         about: aboutcontent.GetAboutText(),
+        chatLog: chathistory.GetChatHistory(),
     });
 });
 

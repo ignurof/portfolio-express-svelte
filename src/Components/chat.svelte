@@ -1,7 +1,8 @@
 <script>
     let inputValue;
 
-    let chatValues;
+    // Export this and fill it in server.js
+    export let chatLog = [];
 
     const UpdateChat = async() => {
         let apiUrl = "http://localhost:3000/chat/" + inputValue;
@@ -34,7 +35,11 @@
 
 <h2>Chat with Ignurof</h2>
 
-<textarea readonly rows="12" columns="69">{inputValue}</textarea>
+<div class="chatlog">
+    {#each chatLog as chatOldMessage}
+        {chatOldMessage}
+    {/each}
+</div>
 
 <textarea rows="4" columns="42" bind:value={inputValue} />
 <button on:click={UpdateChat}>Send</button>
