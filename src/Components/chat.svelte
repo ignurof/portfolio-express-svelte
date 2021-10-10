@@ -30,6 +30,7 @@
     }
 
     // Updates chat
+    /*
     const ReactiveChat = async() => {
         let apiUrl = "http://localhost:3000/chat";
         // Send GET
@@ -42,7 +43,18 @@
         } else {
             console.error("Something went wrong with chat update");
         }
+    }*/
+
+    const AddChatMessage = () => {
+        chatLog = chatLog;
     }
+
+    // Realtime chat
+    import io from "../../node_modules/socket.io";
+
+    const socket = io();
+
+    socket.on("message", AddChatMessage);
 
     // Reactivity
     $: inputValue;
