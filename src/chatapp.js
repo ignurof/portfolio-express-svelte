@@ -20,3 +20,5 @@ router.post("/:message", (req, res, next) => {
     // Send success message back to user
     res.send("Success!");
 });
+
+module.exports = router;
