@@ -18,7 +18,7 @@ router.post("/:message", (req, res, next) => {
     // Update some array that will be used to store previous messages on server and render it on the page on og route
     chathistory.UpdateChatHistory(req.params.message);
     // Send success message back to user
-    res.send(chathistory.GetChatHistory());
+    res.send(chathistory.GetChatLog());
 });
 
 module.exports = router;

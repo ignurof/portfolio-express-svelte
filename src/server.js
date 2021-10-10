@@ -33,7 +33,7 @@ app.get("/", (req, res, next) => {
     res.render("index", {
         coolQuote: quotegenerator.TheQuote(),
         about: aboutcontent.GetAboutText(),
-        chatLog: chathistory.GetChatHistory(),
+        chatLog: chathistory.GetChatLog(),
     });
 });
 
@@ -53,4 +53,7 @@ app.listen(config.port, () => {
 
     // init about file if needed
     aboutcontent.InitAboutContent();
+
+    // same with chat history
+    chathistory.InitChatJSON();
 });
