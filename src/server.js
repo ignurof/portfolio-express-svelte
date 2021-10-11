@@ -5,11 +5,9 @@ const config = require("../config");
 // For the site
 const quotegenerator = require("./quotegenerator.js");
 const aboutcontent = require("./aboutcontent.js");
-const chathistory = require("./chathistory.js");
 
 // Router
 const adminpanel = require("./adminpanel.js");
-const chatapp = require("./chatapp.js");
 
 let app = express();
 let engine = svelteViewEngine(config.svelteViewEngine);
@@ -33,17 +31,12 @@ app.get("/", (req, res, next) => {
     res.render("index", {
         coolQuote: quotegenerator.TheQuote(),
         about: aboutcontent.GetAboutText(),
-        chatLog: chathistory.GetChatHistory(),
-        outputChatText: chathistory.GetChatText(),
     });
 });
 
 // I just assume this should go below in the order, figure this out in the future bruv
 // TODO: Admin endpoint using express.Router found in adminpanel.js
 app.use("/admin", adminpanel);
-
-// TODO: Make this just awesome
-app.use("/chat", chatapp);
 
 // Listen to requests
 app.listen(config.port, () => {
@@ -54,7 +47,4 @@ app.listen(config.port, () => {
 
     // init about file if needed
     aboutcontent.InitAboutContent();
-
-    // same with chat history
-    chathistory.InitChatJSON();
 });
