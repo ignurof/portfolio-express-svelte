@@ -1,4 +1,6 @@
 <script>
+    import Projectcard from "../components/projectcard.svelte";
+
     export let testVar;
 </script>
 
@@ -16,4 +18,5 @@
 
 <div class="project-cards">
     {testVar}
+    <Projectcard />
 </div>
