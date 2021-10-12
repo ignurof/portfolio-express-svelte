@@ -1,7 +1,8 @@
 <script>
     import Projectcard from "../components/projectcard.svelte";
 
-    export let testVar;
+    // Found in projectlist.js
+    export let projectList;
 </script>
 
 <style>
@@ -17,6 +18,6 @@
 <h2>Projects</h2>
 
 <div class="project-cards">
-    {testVar}
+    {projectList}
     <Projectcard />
 </div>
