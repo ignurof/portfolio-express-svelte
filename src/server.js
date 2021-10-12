@@ -31,6 +31,7 @@ app.get("/", (req, res, next) => {
     res.render("index", {
         coolQuote: quotegenerator.TheQuote(),
         about: aboutcontent.GetAboutText(),
+        testVar: "ProjectsGetListHere",
     });
 });
 

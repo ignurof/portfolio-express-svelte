@@ -12,6 +12,8 @@
 
     import About from "../components/about.svelte";
 
+    import Projects from "../components/projects.svelte";
+
 
     // This is also found in Navbar.svelte, 
     // so when I pass this exported var like this: <Navbar {coolQuote} /> it means I can use component nested exported var on the router in server.js
@@ -20,6 +22,8 @@
     // Found in About.svelte
     export let about;
 
+    // Projects.svelte
+    export let testVar; // This is a nested exported var, found in Projects.svelte
 
     // CSS NOTES
     /*
@@ -39,4 +43,8 @@
 
     <About {about}/>
 
+    <Projects {testVar}>
+        <!-- Can also do like this -->
+        
+    </Projects>
 </main>
