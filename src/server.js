@@ -5,6 +5,7 @@ const config = require("../config");
 // For the site
 const quotegenerator = require("./quotegenerator.js");
 const aboutcontent = require("./aboutcontent.js");
+const projectlist = require("./projectlist.js");
 
 // Router
 const adminpanel = require("./adminpanel.js");
@@ -48,4 +49,14 @@ app.listen(config.port, () => {
 
     // init about file if needed
     aboutcontent.InitAboutContent();
+
+    // init projectlist
+    projectlist.InitProjectListJSON();
+    // debug project
+    projectlist.AddProject(
+        "Jetpack Doggo 1",
+        "Text about the game",
+        ["C#", "Unity"],
+        ["jp1.jpg", "jp2.jpg", "jp3.jpg", "jp4.jpg"]
+    );
 });
