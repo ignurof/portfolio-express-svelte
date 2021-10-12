@@ -1,7 +1,7 @@
 <script>
     let imgSrc = "../../assets/testimg.jpg";
 
-    let cardTitle = "Jetpack Doggo 1";
+    export let title = "default title";
 </script>
 
 <style>
@@ -14,6 +14,6 @@
 <div class="card">
     <a href="/">
         <img src={imgSrc} alt="This is a test">
-        <h4>{cardTitle}</h4>
+        <h4>{title}</h4>
     </a>
 </div>

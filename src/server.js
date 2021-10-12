@@ -59,4 +59,10 @@ app.listen(config.port, () => {
         ["C#", "Unity"],
         ["jp1.jpg", "jp2.jpg", "jp3.jpg", "jp4.jpg"]
     );
+    projectlist.AddProject(
+        "Jetpack Doggo 2",
+        "Text about the game",
+        ["C#", "Unity"],
+        ["jp1.jpg", "jp2.jpg", "jp3.jpg", "jp4.jpg"]
+    );
 });

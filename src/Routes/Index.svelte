@@ -23,7 +23,7 @@
     export let about;
 
     // Projects.svelte
-    export let testVar; // This is a nested exported var, found in Projects.svelte
+    export let projectList; // This is a nested exported var, found in Projects.svelte
 
     // CSS NOTES
     /*
@@ -43,7 +43,7 @@
 
     <About {about}/>
 
-    <Projects {testVar}>
+    <Projects {projectList}>
         <!-- Can also do like this -->
         
     </Projects>

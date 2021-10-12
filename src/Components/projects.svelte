@@ -3,6 +3,10 @@
 
     // Found in projectlist.js
     export let projectList;
+
+    // Found in projectcard.svelte
+    // FIXME: NOTE TO ME: Behöver inte ha denna variabel här pga att jag exportar från projectcard och då bara behöver passa in rätt namns variabel i html <Projectcard {title}
+    let title;
 </script>
 
 <style>
@@ -18,6 +22,8 @@
 <h2>Projects</h2>
 
 <div class="project-cards">
-    {projectList}
-    <Projectcard />
+    {#each projectList.projects as { title, content, tags, images }, i}
+        {i} <!-- Prints out the current index -->
+        <Projectcard {title}/>
+    {/each}
 </div>
