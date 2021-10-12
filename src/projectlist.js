@@ -34,9 +34,9 @@ const InitProjectListJSON = () => {
             console.log("Found projectlist.json");
             // Read file
             ReadProjectListJSON();
-        } else if(err === "ENOENT"){
+        } else if(err.code === "ENOENT"){
             // File didnt exist
-            console.error("projectlist.json does not exist");
+            console.error("projectlist.json does not exist"); 
             // Create file
             GenerateProjectListJSON();
         } else {
