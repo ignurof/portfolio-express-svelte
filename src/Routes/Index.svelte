@@ -32,10 +32,7 @@
 </script>
 
 <style>
-    main{
-        display: grid;
-        grid-template-columns: 1fr;
-    }
+    
 </style>
 
 <main>

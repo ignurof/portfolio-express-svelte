@@ -10,6 +10,7 @@ router.use(function timeLog (req, res, next) {
 });
 
 // define the home page route
+// TODO: Detta borde vara en login sida av något slag
 router.get('/', function (req, res) {
     res.render("private/admin", {
     // Props here

@@ -13,7 +13,6 @@
     .project-cards{
         display: flex;
         flex-direction: row;
-        width: 60%;
         margin: 1em auto;
         padding: 1em;
     }

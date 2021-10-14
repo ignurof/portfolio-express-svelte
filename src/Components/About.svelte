@@ -4,7 +4,6 @@
 
 <style>
     p{
-        width: 60%;
         margin: 1em auto;
     }
 </style>
