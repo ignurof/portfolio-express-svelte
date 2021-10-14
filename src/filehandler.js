@@ -9,7 +9,7 @@ const InitFiles = () => {
     // Iterate over the requested fileNames
     for(let i = 0; i < fileNames.length; i++){
         // Get a specific fileName to create individual files
-        let fileName = fileNames[x];
+        let fileName = fileNames[i];
         fileName = "assets/" + fileName + ".json";
         // Check file availability first
         fs.stat(fileName, (err) => {
@@ -71,6 +71,8 @@ const GenerateFile = (fileName, jsonObj) => {
     // Create a new file or overwrite existing one
     fs.writeFile(fileName, data, (err) => {
         if(err) { return console.error(`Generate Error ${fileName}.json`); }
+
+        console.log(`Generated ${fileName}`);
     });
 }
 
