@@ -4,9 +4,8 @@
 const filehandler = require("./filehandler.js");
 
 // Projectlist strucutre
-let projectList = {
-    "projects": []
-};
+// { projectList: [] }
+let projectList = [];
 
 const GetProjectList = () => {
     return projectList;
@@ -27,7 +26,7 @@ const AddProject = (title, content, tags, images) => {
     };
 
     // Push the new project to projectList servervar
-    projectList.projects.push(projectTemplate);
+    projectList.push(projectTemplate);
 
     // Update projectlist.json using the filehandler
     filehandler.GenerateFile("projectlist", projectList);

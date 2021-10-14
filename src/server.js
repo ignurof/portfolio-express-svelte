@@ -49,7 +49,8 @@ app.listen(config.port, () => {
     quotegenerator.GetQuote();
 
     // Init files
-    filehandler.InitFiles();
+    filehandler.InitFile("about", aboutcontent.GetAboutText());
+    filehandler.InitFile("projectlist", projectlist.GetProjectList());
 
     // debug project
     projectlist.AddProject(
@@ -64,4 +65,5 @@ app.listen(config.port, () => {
         ["C#", "Unity"],
         ["jp1.jpg", "jp2.jpg", "jp3.jpg", "jp4.jpg"]
     );
+    
 });

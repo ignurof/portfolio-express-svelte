@@ -22,7 +22,7 @@
 <h2>Projects</h2>
 
 <div class="project-cards">
-    {#each projectList.projects as { title, content, tags, images }, i}
+    {#each projectList as { title, content, tags, images }, i}
         {i} <!-- Prints out the current index -->
         <Projectcard {title}/>
     {/each}
