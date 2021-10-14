@@ -65,5 +65,8 @@ app.listen(config.port, () => {
         ["C#", "Unity"],
         ["jp1.jpg", "jp2.jpg", "jp3.jpg", "jp4.jpg"]
     );
+
+    // test editproject
+    projectlist.EditProject(0, "new", "new", ["new","new2"], ["test.jpg"]);
     
 });

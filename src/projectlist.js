@@ -32,8 +32,22 @@ const AddProject = (title, content, tags, images) => {
     filehandler.GenerateFile("projectlist", projectList);
 }
 
+const EditProject = (index, title, content, tags, images) => {
+    projectList.map((updatedProject, i) => {
+        if(index == i){
+            updatedProject.title = title;
+            updatedProject.content = content;
+            updatedProject.tags = tags;
+            updatedProject.images = images;
+        }
+    });
+
+    console.log("edited project?");
+}
+
 module.exports = {
     UpdateProjectList,
     AddProject,
-    GetProjectList
+    GetProjectList,
+    EditProject
 };
