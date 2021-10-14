@@ -1,4 +1,7 @@
-const fs = require("fs");
+// TODO: Till på morgonen, gör en adminsida så man kan skapa, redigera och ta bort projekt från listan, listan ska uppdateras dynamiskt av det
+// Kontaktformulär och en adminsida som läser in alla meddelanden
+// TODO: Kom på ett sätt att skapa typ filehandler.js som tar hand om fs.stat, writefile och readfile sakerna, med params som avgör vilken fil det blir
+const filehandler = require("./filehandler.js");
 
 // Projectlist strucutre
 let projectList = {
@@ -7,6 +10,10 @@ let projectList = {
 
 const GetProjectList = () => {
     return projectList;
+}
+
+const UpdateProjectList = (newList) => {
+    projectList = newList;
 }
 
 // Adds a new project to the servervar projectList
@@ -22,57 +29,12 @@ const AddProject = (title, content, tags, images) => {
     // Push the new project to projectList servervar
     projectList.projects.push(projectTemplate);
 
-    // Update projectlist.json
-    GenerateProjectListJSON();
-}
-
-const InitProjectListJSON = () => {
-    // Check file availability first
-    fs.stat("assets/projectlist.json", (err) => {
-        if(err == null){
-            // File exist
-            console.log("Found projectlist.json");
-            // Read file
-            ReadProjectListJSON();
-        } else if(err.code === "ENOENT"){
-            // File didnt exist
-            console.error("projectlist.json does not exist"); 
-            // Create file
-            GenerateProjectListJSON();
-        } else {
-            throw err;
-        }
-    });
-}
-
-// Updates the JSON file
-const GenerateProjectListJSON = () => {
-    // Convert projectList JSON Object into JSON String
-    let data = JSON.stringify(projectList);
-
-    // Create a new file or overwrite existing one
-    fs.writeFile("assets/projectlist.json", data, (err) => {
-        if(err) { return console.error("Couldnt create projectlist.json"); }
-
-        console.log("Created projectlist.json");
-    });
-}
-
-// Happens on startup
-const ReadProjectListJSON = () => {
-    fs.readFile("assets/projectlist.json", (err, data) => {
-        if(err) { return console.error("Couldnt read projectlist.json"); }
-
-        console.log("Read projectlist.json");
-
-        // Parse the JSON String back into a regular JSON Object
-        // Populate the servervar with fresh list from file
-        projectList = JSON.parse(data);
-    });
+    // Update projectlist.json using the filehandler
+    filehandler.GenerateFile("projectlist", projectList);
 }
 
 module.exports = {
-    InitProjectListJSON,
+    UpdateProjectList,
     AddProject,
     GetProjectList
 };

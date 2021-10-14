@@ -3,6 +3,7 @@ const svelteViewEngine = require("svelte-view-engine");
 const config = require("../config");
 
 // For the site
+const filehandler = require("./filehandler.js");
 const quotegenerator = require("./quotegenerator.js");
 const aboutcontent = require("./aboutcontent.js");
 const projectlist = require("./projectlist.js");
@@ -47,11 +48,9 @@ app.listen(config.port, () => {
     // Run the quotegenerator
     quotegenerator.GetQuote();
 
-    // init about file if needed
-    aboutcontent.InitAboutContent();
+    // Init files
+    filehandler.InitFiles();
 
-    // init projectlist
-    projectlist.InitProjectListJSON();
     // debug project
     projectlist.AddProject(
         "Jetpack Doggo 1",
