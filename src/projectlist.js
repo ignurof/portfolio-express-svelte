@@ -32,17 +32,17 @@ const AddProject = (title, content, tags, images) => {
     filehandler.GenerateFile("projectlist", projectList);
 }
 
+// Maps the specific index of an array to a temporary object so I can easily update its values
 const EditProject = (index, title, content, tags, images) => {
     projectList.map((updatedProject, i) => {
-        if(index == i){
-            updatedProject.title = title;
-            updatedProject.content = content;
-            updatedProject.tags = tags;
-            updatedProject.images = images;
-        }
-    });
+        // If index is not true means it doesnt exist, so early return out
+        if(index != i) return;
 
-    console.log("edited project?");
+        updatedProject.title = title;
+        updatedProject.content = content;
+        updatedProject.tags = tags;
+        updatedProject.images = images;
+    });
 }
 
 module.exports = {
