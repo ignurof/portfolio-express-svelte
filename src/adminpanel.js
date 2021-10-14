@@ -21,7 +21,7 @@ router.get('/', function (req, res) {
 // Here I can grab :content like a regular param, very nice
 router.post('/about/:content', function (req, res) {
     console.log(req.params.content);
-    aboutcontent.EditAboutContent(req.params.content);
+    aboutcontent.UpdateAboutText(req.params.content);
     // Send it back so frontend can do something with it
     res.send(req.params.content);
 });
