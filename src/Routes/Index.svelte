@@ -26,14 +26,27 @@
     export let projectList; // This is a nested exported var, found in Projects.svelte
 
     let pageSelector = "projects";
+
+    const SetPage = () => {
+        if(pageSelector === "about"){
+            pageSelector = "projects";
+        } else if(pageSelector === "projects"){
+            pageSelector = "about";
+        } else{
+            pageSelector = "projects";
+        }
+    }
+
+    // Reactivity required for dynamic updates
+    //$: pageSelector;
 </script>
 
 <style>
     .menu{
         display: flex;
         flex-direction: row;
-        border: 4px solid #2b2a28;
-        box-shadow: -2px 6px 4px #2b2a28;
+        border: 4px solid rgba(255, 255, 255, 0.20);
+        box-shadow: -2px 6px 4px rgba(255, 255, 255, 0.20);
         width: 60%;
         margin: 1em auto;
         /* top | right | bottom | left */
@@ -43,8 +56,7 @@
     h2{
         font-family: monospace;
         font-size: 1.4em;
-        color: #d4851d;
-        text-shadow: 1px 1px 0px #de5733;
+        color: #B4A5A5;
         cursor: pointer;
         margin: 0 auto;
     }
@@ -54,14 +66,18 @@
     <Navbar {coolQuote}/>
 
     <div class="menu">
-        <h2 on:click={pageSelector = "about"}>About</h2>
-        <h2 on:click={pageSelector = "projects"}>Projects</h2>
+        <h2 on:click={SetPage}>About</h2>
+        <h2 on:click={SetPage}>Projects</h2>
     </div>
 
-    <About {about}/>
-
-    <Projects {projectList}>
-        <!-- Can also do like this -->
-        
-    </Projects>
+    {#if pageSelector == "about"}
+        <About {about}/>
+    {:else if pageSelector == "projects"}
+        <Projects {projectList}>
+            <!-- Can also do like this -->
+            
+        </Projects>
+    {:else}
+        Hello World Error!
+    {/if}
 </main>

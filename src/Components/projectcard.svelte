@@ -11,12 +11,11 @@
     .card{
         display:flex;
         flex-direction: column;
-        border: 4px solid #2b2a28; /* OLD: #de5733 */
-        box-shadow: -2px 6px 4px #2b2a28;
+        border: 4px solid #3C415C;
+        box-shadow: -2px 6px 4px rgba(255, 255, 255, 0.20);
         width: 33%;
         margin: .2em;
-        background: #2b2a28;
-        color: #d4851d;
+        background: #3C415C;
     }
 
     .card-content{
@@ -45,7 +44,6 @@
         font-weight: bold;
         flex-grow: 9; /* Take up 9/1 */
         text-align: start; /* Make sure its placed at the start of the element area */
-        text-shadow: 1px 1px 0px #de5733;
     }
 
     p{

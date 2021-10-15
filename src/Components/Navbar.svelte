@@ -16,14 +16,14 @@
         font-size: 4em;
         color: #de5733;  /* #336460 blueishgreen #d4851d goldenish saving these for maybe something else*/
         /* offset-x | offset-y | blur-radius | color */
-        text-shadow: 2px 2px 0px #d4851d;
+        text-shadow: 2px 2px 0px rgb(126, 49, 28);
     }
 
     p{
         margin: 0 auto 4em;
         width: 50%;
         font-size: .8em;
-        color: #8c6f51;
+        color: #B4A5A5;
     }
 </style>
 
