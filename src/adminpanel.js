@@ -18,7 +18,7 @@ router.get('/', function (req, res) {
     });
 });
 
-// define the about route that takes only POST requests from frontend using fetch calls
+// Edit the about content text using POST request
 // Here I can grab :content like a regular param, very nice
 router.post('/about/:content', function (req, res) {
     console.log(req.params.content);

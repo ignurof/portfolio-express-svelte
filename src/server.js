@@ -1,8 +1,9 @@
+// Webserver and Frontend
 const express = require("express");
 const svelteViewEngine = require("svelte-view-engine");
 const config = require("../config");
 
-// For the site
+// Site content
 const filehandler = require("./filehandler.js");
 const quotegenerator = require("./quotegenerator.js");
 const aboutcontent = require("./aboutcontent.js");
@@ -11,10 +12,12 @@ const projectlist = require("./projectlist.js");
 // Router
 const adminpanel = require("./adminpanel.js");
 
+// Server and View Engine declarations
 let app = express();
 let engine = svelteViewEngine(config.svelteViewEngine);
 let { dir, type, buildDir } = config.svelteViewEngine;
 
+// View Engine setup
 app.engine(type, engine.render);
 app.set("view engine", type);
 app.set("views", dir);
@@ -38,7 +41,7 @@ app.get("/", (req, res, next) => {
 });
 
 // I just assume this should go below in the order, figure this out in the future bruv
-// TODO: Admin endpoint using express.Router found in adminpanel.js
+// Routes requests to http://localhost:3000/admin
 app.use("/admin", adminpanel);
 
 // Listen to requests

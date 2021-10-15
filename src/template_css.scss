@@ -1,3 +1,4 @@
+// For mobile screens
 body{
     margin: 0;
     padding: 0;
@@ -15,5 +16,13 @@ body{
         margin: 1em auto;
         font-family: monospace;
         font-size: 2em;
+    }
+}
+
+// For large screens
+@media screen and (min-width: 993px) {
+    main{
+        width: 60%;
+        margin: 0 auto;
     }
 }
