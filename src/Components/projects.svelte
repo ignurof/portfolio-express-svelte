@@ -17,6 +17,7 @@
         padding: 1em;
         border: 4px solid #2b2a28;
         box-shadow: -2px 6px 4px #2b2a28;
+        width: 60%;
     }
 </style>
 

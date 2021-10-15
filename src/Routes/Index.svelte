@@ -36,6 +36,8 @@
         box-shadow: -2px 6px 4px #2b2a28;
         width: 60%;
         margin: 1em auto;
+        /* top | right | bottom | left */
+        padding: .2em 1em .2em 1em;
     }
 
     h2{

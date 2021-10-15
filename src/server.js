@@ -75,6 +75,6 @@ app.listen(config.port, () => {
         ["jp1.jpg", "jp2.jpg", "jp3.jpg", "jp4.jpg"]
     );
     // test editproject
-    projectlist.EditProject(0, "new", "new", ["new","new2"], ["test.jpg"]);
+    projectlist.EditProject(0, "new", "new", ["new","new2"], ["testimg.jpg"]);
     
 });

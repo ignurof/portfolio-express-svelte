@@ -17,7 +17,7 @@ const InitFile = (fileName, jsonObj) => {
 
 // Happens on startup
 const ReadFile = (fileName) => {
-    fileName = "assets/" + fileName + ".json";
+    fileName = "admindb/" + fileName + ".json";
     // Read the file
     fs.readFile(fileName, (err, data) => {
         if(err) { return console.error(`Read Error ${fileName}`); }
@@ -34,7 +34,7 @@ function GenerateFile(fileName, jsonObj){
     // Parse JSON object to string
     let data = JSON.stringify(jsonObj);
 
-    fileName = "assets/" + fileName + ".json";
+    fileName = "admindb/" + fileName + ".json";
 
     // Create a new file or overwrite existing one
     fs.writeFile(fileName, data, (err) => {

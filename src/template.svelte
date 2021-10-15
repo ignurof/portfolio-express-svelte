@@ -4,7 +4,7 @@
 		${head}
 		<link rel="stylesheet" href="${cssPath}">
 		<style>
-            ${include ../build/global.css}
+            ${include ../build/routes/global.css}
         </style>
 	</head>
 	<body style="margin:0;padding:0;">

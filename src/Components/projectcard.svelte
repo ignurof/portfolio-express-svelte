@@ -1,7 +1,10 @@
 <script>
-    let imgSrc = "../../assets/testimg.jpg";
+    /* Assets dir, aka build/routes/ - Note: I have to prefix it with /assets/ */
+    let imgSrc = "/assets/img/testimg.jpg";
 
     export let title = "default title";
+
+    let tags = ["C#", "Unity"];
 </script>
 
 <style>
@@ -11,6 +14,7 @@
         border: 2px solid #d4851d;
         box-shadow: 0px 4px 2px #d4851d;
         width: 33%;
+        margin: .2em;
     }
 
     button{
@@ -27,5 +31,6 @@
     <button>
         <img src={imgSrc} alt="This is a test">
         <h4>{title}</h4>
+        <p>{tags}</p>
     </button>
 </div>
