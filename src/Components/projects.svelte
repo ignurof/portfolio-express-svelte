@@ -15,14 +15,14 @@
         flex-direction: row;
         margin: 1em auto;
         padding: 1em;
+        border: 4px solid #2b2a28;
+        box-shadow: -2px 6px 4px #2b2a28;
     }
 </style>
 
-<h2>Projects</h2>
-
 <div class="project-cards">
     {#each projectList as { title, content, tags, images }, i}
-        {i} <!-- Prints out the current index -->
+        <!--{i} Prints out the current index -->
         <Projectcard {title}/>
     {/each}
 </div>

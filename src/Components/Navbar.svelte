@@ -16,7 +16,7 @@
         font-size: 4em;
         color: #de5733;  /* #336460 blueishgreen #d4851d goldenish saving these for maybe something else*/
         /* offset-x | offset-y | blur-radius | color */
-        text-shadow: 2px 4px 8px #8c6f51;
+        text-shadow: 2px 2px 0px #d4851d;
     }
 
     p{

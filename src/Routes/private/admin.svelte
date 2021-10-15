@@ -29,13 +29,12 @@
         height: 3em;
         font-size: 1em;
         border: 0; /* remove standard input border */
-        outline: 2px solid #336460;
     }
 
     /* This button hella insane tho, what is this mess? I absolutely hate CSS even though ive made it my bitch */
     button{
         width: 50%;
-        background: #336460; /* blueish green */
+        background: none; 
         color: #d4851d; /* goldenish */
         font-weight: bold;
         font-size: 1.4em;

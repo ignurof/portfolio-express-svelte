@@ -8,5 +8,4 @@
     }
 </style>
 
-<h2>About me</h2>
 <p>{about}</p>
