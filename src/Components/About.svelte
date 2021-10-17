@@ -1,10 +1,10 @@
 <script>
-    export let about = "default about me text";
+    export let about;
 </script>
 
 <style>
     p{
-        margin: 1em auto;
+        margin: 0; /* reset p factory defaults */
     }
 </style>
 

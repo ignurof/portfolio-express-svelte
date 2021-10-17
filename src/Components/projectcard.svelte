@@ -9,28 +9,12 @@
 
 <style>
     .card{
-        display:flex;
-        flex-direction: column;
-        border: 4px solid #3C415C;
-        box-shadow: -2px 6px 4px rgba(255, 255, 255, 0.20);
-        width: 33%;
-        margin: .2em;
-        background: #3C415C;
-    }
-
-    .card-content{
-        display:flex;
-        flex-direction: row;
-    }
-
-    button{
-        color: inherit; /* inherits body text color */
-        border: 0;
-        background: none;
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
-        padding: 0;
+        background: #EDF7F7;
+        color: black;
+        box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.25);
+        width: 100%; /* Make the cards fill up the entire "project-cards" container found in projects.svelte */ 
+        border-radius: 1em;
+        margin: .2em; /* grid gap */
     }
 
     img{
@@ -40,25 +24,17 @@
 
     h4{
         margin: 0; /* reset default margin */
-        padding: .4em;
         font-weight: bold;
-        flex-grow: 9; /* Take up 9/1 */
         text-align: start; /* Make sure its placed at the start of the element area */
     }
 
     p{
         margin: 0; /* reset default margin */
-        padding: .4em;
-        flex-grow: 1; /* take up 1/9 */
     }
 </style>
 
 <div class="card">
-    <button>
-        <img src={imgSrc} alt="This is a test">
-        <div class="card-content">
-            <h4>{title}</h4>
-            <p>{tags}</p>
-        </div>
-    </button>
+    <img src={imgSrc} alt="This is a test">
+    <h4>{title}</h4>
+    <p>{tags}</p>
 </div>
