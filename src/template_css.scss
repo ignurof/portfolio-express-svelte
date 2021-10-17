@@ -4,8 +4,8 @@ body{
     padding: 0;
     font-size: 24px;
     font-family: Helvetica, sans-serif;
-    background-color: #151515; /* blueish green */
-    color: #B4A5A5;
+    background-color: #1D2E35; /* blueish green */
+    color: #EDF7F7;
 
     main{
         display: grid;
@@ -16,6 +16,10 @@ body{
 // For large screens
 @media screen and (min-width: 993px) {
     main{
+        width: 60%;
+        margin: 0 auto;
+    }
+    nav{
         width: 60%;
         margin: 0 auto;
     }
