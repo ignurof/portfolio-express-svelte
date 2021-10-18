@@ -29,6 +29,12 @@
         border-top-right-radius: .3em;
     }
 
+    .card-content{
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+    }
+
     h4{
         margin: 0; /* reset default margin */
         font-weight: bold;
@@ -61,7 +67,9 @@
 
 <div class="card">
     <img src={imgSrc} alt="This is a test">
-    <h4>{title}</h4>
-    <p>{summary}</p>
-    <button>Read more</button>
+    <div class="card-content">
+        <h4>{title}</h4>
+        <p>{summary}</p>
+        <button>Read more</button>
+    </div>
 </div>

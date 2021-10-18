@@ -3,15 +3,6 @@
 
     export let coolQuote;
 
-    // Svelte Stores (Global Frontend Vars)
-    import { navigation } from "../stores.js";
-
-    let currentValue;
-    // Subscribes to the store event
-    navigation.subscribe(value => {
-        currentValue = value;
-    });
-
     let socImages = [
         "/assets/img/github.svg",
         "/assets/img/twitter.svg",
@@ -19,17 +10,8 @@
         "/assets/img/discord.svg"
     ];
 
-    const GotoAbout = () => {
-        if(currentValue == 0) return console.error("Pointless navigation attempt.");
-        // Update Svelte Store vars
-        navigation.update(n => n = 0);
-    }
-
-    const GotoProjects = () => {
-        if(currentValue == 1) return console.error("Pointless navigation attempt.");
-        // Update Svelte Store vars
-        navigation.update(n => n = 1);
-    }
+    // Used in Index.svelte and Showcase.svelte
+    export let activePage;
 </script>
 
 <style>
@@ -62,21 +44,12 @@
         margin-left: .6em;
         margin-right: .6em;
         font-size: 1em;
+        font-weight: 400;
+        cursor: pointer;
     }
 
     .activeSelection{
-        text-decoration: underline;
-    }
-
-    h4{
-        margin: 0;
-        color: #EDF7F7;
-        text-decoration: none;
-        margin-left: .6em;
-        margin-right: .6em;
-        font-size: 1em;
-        font-weight: 400;
-        cursor: pointer;
+        border-bottom: 1px solid #EDF7F7;
     }
 
     .divider{
@@ -120,12 +93,12 @@
     <h1>{name.toUpperCase()}</h1>
 
     <div class="menu">
-        {#if currentValue == 0}
-            <h4 on:click={GotoAbout} class="activeSelection">About</h4>
-            <h4 on:click={GotoProjects}>Projects</h4>
-        {:else if currentValue == 1}
-            <h4 on:click={GotoAbout}>About</h4>
-            <h4 on:click={GotoProjects} class="activeSelection">Projects</h4>
+        {#if activePage === "about"}
+            <a href="/" class="activeSelection">About</a>
+            <a href="/showcase">Projects</a>
+        {:else if activePage === "projects"}
+            <a href="/">About</a>
+            <a href="/showcase" class="activeSelection">Projects</a>
         {/if}
         
     </div>

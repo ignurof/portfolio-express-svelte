@@ -11,6 +11,7 @@ const projectlist = require("./projectlist.js");
 
 // Router
 const adminpanel = require("./adminpanel.js");
+const showcase = require("./showcase.js");
 
 // Server and View Engine declarations
 let app = express();
@@ -36,13 +37,15 @@ app.get("/", (req, res, next) => {
     res.render("index", {
         coolQuote: quotegenerator.TheQuote(),
         about: aboutcontent.GetAboutText(),
-        projectList: projectlist.GetProjectList(),
     });
 });
 
 // I just assume this should go below in the order, figure this out in the future bruv
 // Routes requests to http://localhost:3000/admin
 app.use("/admin", adminpanel);
+
+// Projects page
+app.use("/showcase", showcase);
 
 // Listen to requests
 app.listen(config.port, () => {
