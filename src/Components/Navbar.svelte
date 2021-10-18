@@ -1,7 +1,17 @@
 <script>
     let name = "ignurof.xyz";
 
-    export let coolQuote = "some cool quote goes here, maybe pulled from some public api";
+    export let coolQuote;
+    let pageSelection;
+
+    // Svelte Stores (Global Frontend Vars)
+    import { navigation } from "../stores.js";
+
+    let currentValue;
+    // Subscribes to the store event
+    navigation.subscribe(value => {
+        currentValue = value;
+    });
 
     let socImages = [
         "/assets/img/github.svg",
@@ -9,6 +19,17 @@
         "/assets/img/youtube.svg",
         "/assets/img/discord.svg"
     ];
+
+    const SetPage = () => {
+        if(currentValue == 1){
+            navigation.update(n => n = 0);
+        } else if(currentValue == 0){
+            navigation.update(n => n = 1);
+        } else {
+            console.error("Page not available!");
+        }
+        console.log(pageSelection);
+    }
 </script>
 
 <style>
@@ -41,6 +62,21 @@
         margin-left: .6em;
         margin-right: .6em;
         font-size: 1em;
+    }
+
+    .activeSelection{
+        text-decoration: underline;
+    }
+
+    h4{
+        margin: 0;
+        color: #EDF7F7;
+        text-decoration: none;
+        margin-left: .6em;
+        margin-right: .6em;
+        font-size: 1em;
+        font-weight: 400;
+        cursor: pointer;
     }
 
     .divider{
@@ -84,8 +120,14 @@
     <h1>{name.toUpperCase()}</h1>
 
     <div class="menu">
-        <a href="/">About</a>
-        <a href="/">Projects</a>
+        {#if currentValue == 0}
+            <h4 on:click={SetPage} class="activeSelection">About</h4>
+            <h4 on:click={SetPage}>Projects</h4>
+        {:else if currentValue == 1}
+            <h4 on:click={SetPage}>About</h4>
+            <h4 on:click={SetPage} class="activeSelection">Projects</h4>
+        {/if}
+        
     </div>
     <div class="divider"></div>
     <div class="socials">

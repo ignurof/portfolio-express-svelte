@@ -14,11 +14,19 @@
 
     import Projects from "../components/projects.svelte";
 
+    // Svelte Stores (Global Frontend Vars)
+    import { navigation } from "../stores.js";
+
+    let currentValue;
+    // Subscribes to the store event
+    navigation.subscribe(value => {
+        currentValue = value;
+    });
+
 
     // This is also found in Navbar.svelte, 
     // so when I pass this exported var like this: <Navbar {coolQuote} /> it means I can use component nested exported var on the router in server.js
     export let coolQuote;
-    let pageSelection = "projects"; // default value for good measure
 
     // Found in About.svelte
     export let about;
@@ -30,14 +38,14 @@
 <style>
     
 </style>
-
-<Navbar {coolQuote}/>
+<!-- I need to pass the vars into Navbar so they can be used by it, but I also need to put them here when im exporting from Navbar into this file -->
+<Navbar {coolQuote} />
 
 <main>
     <section>
-        {#if pageSelection == "about"}
+        {#if currentValue == 0}
             <About {about}/>
-        {:else if pageSelection == "projects"}
+        {:else if currentValue == 1}
             <Projects {projectList}>
                 <!-- Can also do like this -->
                 
