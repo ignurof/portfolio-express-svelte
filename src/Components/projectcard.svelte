@@ -17,6 +17,9 @@
         border-radius: .3em;
         margin: .4em; /* grid gap */
         width: 33%; /* ONE card = 33% area of parent container aka projects */
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     img{
@@ -37,6 +40,7 @@
         margin: 0; /* reset default margin */
         color: rgb(112, 112, 112);
         padding: .2em;
+        font-size: .8em;
     }
 
     button{
@@ -47,8 +51,11 @@
         border-radius: .4em;
         padding: .6em;
         cursor: pointer;
-        margin-left: 60%;
-        margin-bottom: 4%;
+        width: 40%;
+        margin-left: auto;
+        margin-right: 1em;
+        margin-bottom: 1em;
+        margin-top: 1em;
     }
 </style>
 
