@@ -13,6 +13,7 @@
     .project-cards{
         display: flex;
         flex-direction: row-reverse; /* Descending Order */
+        justify-content: center;
     }
 </style>
 
