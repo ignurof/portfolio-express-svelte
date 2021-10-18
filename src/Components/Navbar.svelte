@@ -2,7 +2,6 @@
     let name = "ignurof.xyz";
 
     export let coolQuote;
-    let pageSelection;
 
     // Svelte Stores (Global Frontend Vars)
     import { navigation } from "../stores.js";
@@ -20,15 +19,16 @@
         "/assets/img/discord.svg"
     ];
 
-    const SetPage = () => {
-        if(currentValue == 1){
-            navigation.update(n => n = 0);
-        } else if(currentValue == 0){
-            navigation.update(n => n = 1);
-        } else {
-            console.error("Page not available!");
-        }
-        console.log(pageSelection);
+    const GotoAbout = () => {
+        if(currentValue == 0) return console.error("Pointless navigation attempt.");
+        // Update Svelte Store vars
+        navigation.update(n => n = 0);
+    }
+
+    const GotoProjects = () => {
+        if(currentValue == 1) return console.error("Pointless navigation attempt.");
+        // Update Svelte Store vars
+        navigation.update(n => n = 1);
     }
 </script>
 
@@ -121,11 +121,11 @@
 
     <div class="menu">
         {#if currentValue == 0}
-            <h4 on:click={SetPage} class="activeSelection">About</h4>
-            <h4 on:click={SetPage}>Projects</h4>
+            <h4 on:click={GotoAbout} class="activeSelection">About</h4>
+            <h4 on:click={GotoProjects}>Projects</h4>
         {:else if currentValue == 1}
-            <h4 on:click={SetPage}>About</h4>
-            <h4 on:click={SetPage} class="activeSelection">Projects</h4>
+            <h4 on:click={GotoAbout}>About</h4>
+            <h4 on:click={GotoProjects} class="activeSelection">Projects</h4>
         {/if}
         
     </div>
