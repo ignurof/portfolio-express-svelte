@@ -6,6 +6,7 @@ const projectlist = require("./projectlist.js");
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
     console.log('Ran the Showcase router @ Time: ', Date.now());
+    console.log(req.ip);
     next();
 });
 
