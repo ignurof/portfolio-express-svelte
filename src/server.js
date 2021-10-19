@@ -1,5 +1,6 @@
 // Webserver and Frontend
 const express = require("express");
+const cors = require("cors");
 const svelteViewEngine = require("svelte-view-engine");
 const config = require("../config");
 
@@ -22,6 +23,17 @@ let { dir, type, buildDir } = config.svelteViewEngine;
 app.engine(type, engine.render);
 app.set("view engine", type);
 app.set("views", dir);
+
+// CORS SETUP
+let corsOptions = {
+    "origin": 'http://ignurof.xyz',
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
+}
+
+// Preflight request using corsOptions object, for all routes
+app.use(cors(corsOptions))
 
 // Change this to fit your static content (Images, etc.)
 app.use("/assets", express.static(buildDir));

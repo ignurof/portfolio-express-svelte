@@ -8,5 +8,6 @@ module.exports = {
         type: "svelte",
         buildDir: `${__dirname}/build/routes`,
         assetsPrefix:  "/assets/",
+        liveReload: false,
     },
 };
