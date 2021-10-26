@@ -3,10 +3,16 @@
     let imgSrc = "/assets/img/testimg.jpg";
 
     export let title = "default title";
+    export let index = 99;
 
     let summary = "This small summary should be the first X amount of characters pulled from the start of contentString array.";
 
     let tags = ["C#", "Unity"];
+
+    const GotoProject = () => {
+        let apiUrl = `/showcase/project/${index}`;
+        location.href = apiUrl;
+    }
 </script>
 
 <style>
@@ -71,5 +77,5 @@
         <h4>{title}</h4>
         <p>{summary}</p>
     </div>
-    <button>Read more</button>
+    <button on:click={GotoProject}>Read more</button>
 </div>
