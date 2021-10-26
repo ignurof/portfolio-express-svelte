@@ -22,6 +22,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "svelte": "^3.44.0",
-    "svelte-view-engine": "^14.12.6"
+    "svelte-view-engine": "github:Blade67/svelte-view-engine"
   }
 }
