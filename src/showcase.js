@@ -12,11 +12,24 @@ router.use(function timeLog (req, res, next) {
 });
 
 // define the projects page route
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
     res.render("showcase", {
         // Props here
         coolQuote: quotegenerator.TheQuote(),
         projectList: projectlist.GetProjectList(),
+    });
+});
+
+// Detailed project page
+router.get("/project/:index", (req, res) => {
+    // Grab correct project based on index value
+    let specProject = projectlist.GetSpecificProject(req.params.index);
+    // Render the page
+    res.render("project", {
+        title: specProject.title,
+        content: specProject.content,
+        tags: specProject.tags,
+        images: specProject.images,
     });
 });
 

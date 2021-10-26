@@ -7,6 +7,10 @@ const filehandler = require("./filehandler.js");
 // { projectList: [] }
 let projectList = [];
 
+const GetSpecificProject = (index) => {
+    return projectList[index];
+}
+
 const GetProjectList = () => {
     return projectList;
 }
@@ -49,5 +53,6 @@ module.exports = {
     UpdateProjectList,
     AddProject,
     GetProjectList,
-    EditProject
+    EditProject,
+    GetSpecificProject
 };
