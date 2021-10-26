@@ -48,8 +48,16 @@
         cursor: pointer;
     }
 
+    a:hover{
+        color: #038A7A;
+    }
+
     .activeSelection{
         border-bottom: 1px solid #EDF7F7;
+    }
+
+    .activeSelection:hover{
+        border-bottom: 1px solid #038A7A;
     }
 
     .divider{
