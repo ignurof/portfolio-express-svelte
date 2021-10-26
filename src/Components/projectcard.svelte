@@ -32,7 +32,7 @@
     .card-content{
         display: flex;
         flex-direction: column;
-        padding: 1em;
+        padding: .4em;
     }
 
     h4{
@@ -54,13 +54,13 @@
         background: #038A7A;
         color: #EDF7F7;
         font-weight: bold;
+        font-size: .6em;
         border-radius: .4em;
-        padding: .6em;
+        padding: .8em;
         cursor: pointer;
         width: 40%;
         margin-left: auto;
-        margin-right: 1em;
-        margin-bottom: 1em;
+        margin-right: 1.4em;
         margin-top: 1em;
     }
 </style>
@@ -70,6 +70,6 @@
     <div class="card-content">
         <h4>{title}</h4>
         <p>{summary}</p>
-        <button>Read more</button>
     </div>
+    <button>Read more</button>
 </div>
