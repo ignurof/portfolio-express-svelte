@@ -84,6 +84,7 @@
         height: 6em;
         /* For all div children */
         display: flex;
+        flex-direction: column;
         justify-content: center; /* Horizontally */
         align-items: center; /* Vertically */
     }
@@ -94,6 +95,10 @@
         width: 60%; /* FIXME: Should be put in global media query for large screens */
         margin: 0;
         text-align: center;
+    }
+
+    .mail{
+        margin-top: 1em;
     }
 </style>
 
@@ -120,4 +125,5 @@
 </nav>
 <div class="quote">
     <p>{coolQuote}</p>
+    <a class="mail" href="mailto:hire@ignurof.xyz">hire@ignurof.xyz</a>
 </div>

@@ -3,7 +3,7 @@ const axios = require('axios');
 // Fetches all public scrapped quotes from Kanye using https://api.kanye.rest/ { quote: "text" }
 // FIXME: Dont use Kanye quotes in prod, use my own quotes or messages instead
 
-let theQuote = "I'm currently looking for my first professional developer position. If you're looking to hire me, contact me through email here: hire@ignurof.xyz";
+let theQuote = "I'm currently looking for my first professional developer position. If you're looking to hire me, contact me through email here.";
 
 const GetQuote = () => {
     axios.get("https://api.kanye.rest/").then((response) => {
