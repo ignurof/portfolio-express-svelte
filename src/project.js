@@ -13,23 +13,19 @@ router.use(function timeLog (req, res, next) {
 
 // define the projects page route
 router.get('/', (req, res) => {
-    res.render("showcase", {
-        // Props here
-        coolQuote: quotegenerator.TheQuote(),
-        projectList: projectlist.GetProjectList(),
-    });
+    res.send("Nothing here!");
 });
 
 // Detailed project page
-router.get("/project/:index", (req, res) => {
+router.get("/:index", (req, res) => {
     // Grab correct project based on index value
     let specProject = projectlist.GetSpecificProject(req.params.index);
     // Convert string to int so it can be used
     let indexValue = parseInt(req.params.index);
     //TODO: Make an actual 404 page
     if(specProject == undefined) {
-        //res.send("Error 404 - Project does not exist!");
-        res.redirect("/showcase");
+        res.send("Error 404 - Project does not exist!");
+        //res.redirect("/showcase");
     }
     // Render the page
     res.render("project", {

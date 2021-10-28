@@ -10,7 +10,7 @@
     //let tags = ["C#", "Unity"];
 
     const GotoProject = () => {
-        let apiUrl = `/showcase/project/${index}`;
+        let apiUrl = `/project/${index}`;
         location.href = apiUrl;
     }
 </script>

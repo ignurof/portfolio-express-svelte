@@ -1,14 +1,9 @@
 <script>
     import Navbar from "../components/navbar.svelte";
 
-    import Projects from "../components/projects.svelte";
+    export let about;
 
-    // This is also found in Navbar.svelte, 
-    // so when I pass this exported var like this: <Navbar {coolQuote} /> it means I can use component nested exported var on the router in server.js
     export let coolQuote;
-
-    // Projects.svelte
-    export let projectList; // This is a nested exported var, found in Projects.svelte
 </script>
 
 <style>
@@ -32,13 +27,17 @@
             width: 60%;
         }
     }
+
+    p{
+        margin: 0; /* reset p factory defaults */
+        padding-left: .2em;
+        padding-right: .2em;
+    }
 </style>
+
 <!-- I need to pass the vars into Navbar so they can be used by it, but I also need to put them here when im exporting from Navbar into this file -->
-<Navbar {coolQuote} activePage="projects"/>
+<Navbar {coolQuote} activePage="about"/>
 
 <main>
-    <Projects {projectList}>
-        <!-- Can also do like this -->
-            
-    </Projects>
+    <p>{about}</p>
 </main>

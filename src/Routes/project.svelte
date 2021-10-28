@@ -16,7 +16,7 @@
         // IF previous is true, +, else -
         // Simple If-Else statement is better made with this ternary operator
         let newIndex = (previous) ? (index += 1) : (index -= 1);
-        let apiUrl = `/showcase/project/${newIndex}`;
+        let apiUrl = `/project/${newIndex}`;
         location.href = apiUrl;
     }
 </script>

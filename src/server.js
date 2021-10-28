@@ -12,7 +12,8 @@ const projectlist = require("./projectlist.js");
 
 // Router
 const adminpanel = require("./adminpanel.js");
-const showcase = require("./showcase.js");
+const project = require("./project.js");
+const about = require("./about.js");
 
 // Server and View Engine declarations
 let app = express();
@@ -46,9 +47,11 @@ app.get("/", (req, res, next) => {
      * be SSR'd on the fly!
      */
 
-    res.render("index", {
+    // Projects page should be default
+    res.render("projects", {
+        // Props here
         coolQuote: quotegenerator.TheQuote(),
-        about: aboutcontent.GetAboutText(),
+        projectList: projectlist.GetProjectList(),
     });
 });
 
@@ -56,8 +59,11 @@ app.get("/", (req, res, next) => {
 // Routes requests to http://localhost:3000/admin
 app.use("/admin", adminpanel);
 
+// About page
+app.use("/about", about);
+
 // Projects page
-app.use("/showcase", showcase);
+app.use("/project", project);
 
 // Listen to requests
 app.listen(config.port, () => {
