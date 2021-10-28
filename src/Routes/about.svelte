@@ -7,27 +7,6 @@
 </script>
 
 <style>
-    /* Trying to experiment with perfect breakpoint styling. 3 breakpoints seems to be the best */
-    /* TODO: Fixa mer ordentligt responsivitet så det ser exakt likadant ut på alla storlekar men med bra scaling */
-    /* FIXME: About paragraf behöver ha lika mycket margin/padding som projects div */
-    @media screen and (min-width: 993px) {
-        main{
-            width: 86%;
-        }
-    }
-
-    @media screen and (min-width: 1100px){
-        main{
-            width: 76%;
-        }
-    }
-
-    @media screen and (min-width: 1400px){
-        main{
-            width: 60%;
-        }
-    }
-
     p{
         margin: 0; /* reset p factory defaults */
         padding-left: .2em;
