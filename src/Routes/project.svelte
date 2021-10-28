@@ -12,13 +12,15 @@
     export let images;
     export let links;
 
+    let newHref;
+
     // The projectCards are displayed in reverse order so going back would be going up
     const ChangeProject = (previous) => {
         // IF previous is true, +, else -
         // Simple If-Else statement is better made with this ternary operator
         let newIndex = (previous) ? (index += 1) : (index -= 1);
         let apiUrl = `/project/${newIndex}`;
-        location.href = apiUrl;
+        newHref = apiUrl;
     }
 </script>
 
@@ -30,6 +32,12 @@
         margin-bottom: 2em;
     }
 
+    /* Positions the directional arrows more vertically aligned with title */
+    .project-header a{
+        position: relative;
+        bottom: 1em;
+    }
+
     .project-header-title{
         display:flex;
         flex-direction: column;
@@ -39,6 +47,7 @@
         display:flex;
         flex-direction: row;
         margin: 0 auto;
+        margin-bottom: 1em;
     }
 
     a{
@@ -76,19 +85,18 @@
         margin-bottom: .4em;
     }
 
-    button{
-        border: 0;
-        background: #038A7A;
-        color: #EDF7F7;
-        font-weight: bold;
-        font-size: 1.2em;
-        border-radius: .2em;
-        cursor: pointer;
-        padding: 1em;
+    p{
+        /* top left bottom right I THINK */
+        margin: 1em 0 2em 0;
     }
 
-    p{
-        margin: 1em 0;
+    svg{
+        width: 3em;
+        stroke: #038A7A;
+    }
+
+    svg:hover{
+        stroke: #EDF7F7;
     }
 </style>
 <!-- Im passing it here because I want the page to act like its still the projects page -->
@@ -96,16 +104,20 @@
 
 <main>
     <div class="project-header">
-        <button on:click={() => ChangeProject(true)}>
-            &#60; <!-- HTML Code for < -->
-        </button>
+        <a href={newHref} on:click={() => ChangeProject(true)}>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+        </a>
         <div class="project-header-title">
             <h2>{title}</h2>
             <div class="tiny">{tags}</div>
         </div>
-        <button on:click={() => ChangeProject(false)}>
-            &#62; <!-- HTML Code for > -->
-        </button>
+        <a href={newHref} on:click={() => ChangeProject(false)}>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+        </a>
     </div>
     <div class="links">
         {#each links as { href, text }}

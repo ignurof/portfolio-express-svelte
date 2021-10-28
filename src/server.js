@@ -78,7 +78,7 @@ app.listen(config.port, () => {
     // debug project
     projectlist.AddProject(
         "Jetpack Doggo 1",
-        "Text about the game",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         ["C#", "Unity"],
         ["jp1/1.jpg", "jp1/2.jpg", "jp1/3.jpg", "jp1/4.jpg"],
         [ // Array with JSON Objects
@@ -88,7 +88,7 @@ app.listen(config.port, () => {
     );
     projectlist.AddProject(
         "Jetpack Doggo 2",
-        "Text about the game",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         ["C#", "Unity"],
         ["jp2/1.jpg", "jp2/2.jpg", "jp2/3.jpg", "jp2/4.jpg"],
         [ // Array with JSON Objects

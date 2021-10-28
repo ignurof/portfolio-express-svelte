@@ -24,8 +24,8 @@ router.get("/:index", (req, res) => {
     let indexValue = parseInt(req.params.index);
     //TODO: Make an actual 404 page
     if(specProject == undefined) {
-        res.send("Error 404 - Project does not exist!");
-        //res.redirect("/showcase");
+        //res.send("Error 404 - Project does not exist!");
+        res.redirect("/");
     }
     // Render the page
     res.render("project", {
