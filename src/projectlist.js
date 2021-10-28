@@ -20,13 +20,14 @@ const UpdateProjectList = (newList) => {
 }
 
 // Adds a new project to the servervar projectList
-const AddProject = (title, content, tags, images) => {
+const AddProject = (title, content, tags, images, links) => {
     // Project structure
     let projectTemplate = {
         title,      // String
         content,    // String
         tags,       // Array
-        images      // Array
+        images,      // Array
+        links       // Array
     };
 
     // Push the new project to projectList servervar
@@ -37,7 +38,7 @@ const AddProject = (title, content, tags, images) => {
 }
 
 // Maps the specific index of an array to a temporary object so I can easily update its values
-const EditProject = (index, title, content, tags, images) => {
+const EditProject = (index, title, content, tags, images, links) => {
     projectList.map((updatedProject, i) => {
         // If index is not true means it doesnt exist, so early return out
         if(index != i) return;
@@ -46,6 +47,7 @@ const EditProject = (index, title, content, tags, images) => {
         updatedProject.content = content;
         updatedProject.tags = tags;
         updatedProject.images = images;
+        updatedProject.links = links;
     });
 }
 

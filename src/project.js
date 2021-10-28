@@ -35,6 +35,7 @@ router.get("/:index", (req, res) => {
         content: specProject.content,
         tags: specProject.tags,
         images: specProject.images,
+        links: specProject.links,
     });
 });
 
