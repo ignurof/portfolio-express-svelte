@@ -7,7 +7,7 @@
 
     let summary = "This small summary should be the first X amount of characters pulled from the start of contentString array.";
 
-    let tags = ["C#", "Unity"];
+    //let tags = ["C#", "Unity"];
 
     const GotoProject = () => {
         let apiUrl = `/showcase/project/${index}`;

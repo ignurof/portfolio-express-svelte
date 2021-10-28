@@ -24,12 +24,17 @@ router.get('/', (req, res) => {
 router.get("/project/:index", (req, res) => {
     // Grab correct project based on index value
     let specProject = projectlist.GetSpecificProject(req.params.index);
+    // Convert string to int so it can be used
+    let indexValue = parseInt(req.params.index);
     //TODO: Make an actual 404 page
     if(specProject == undefined) {
-        res.send("Error 404 - Project does not exist!");
+        //res.send("Error 404 - Project does not exist!");
+        res.redirect("/showcase");
     }
     // Render the page
     res.render("project", {
+        coolQuote: quotegenerator.TheQuote(),
+        index: indexValue,
         title: specProject.title,
         content: specProject.content,
         tags: specProject.tags,
