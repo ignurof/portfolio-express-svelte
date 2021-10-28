@@ -68,8 +68,8 @@ app.use("/project", project);
 app.listen(config.port, () => {
     console.log("Server started on port http://localhost:" + config.port);
 
-    // Run the quotegenerator
-    quotegenerator.GetQuote();
+    // Run the quotegenerator FIXME: Disabled the kanye quotes as they are inappropriate but I want to keep the code for reference unti later
+    //quotegenerator.GetQuote();
 
     // Init files
     filehandler.InitFile("about", aboutcontent.GetAboutText());
@@ -81,15 +81,20 @@ app.listen(config.port, () => {
         "Text about the game",
         ["C#", "Unity"],
         ["jp1/1.jpg", "jp1/2.jpg", "jp1/3.jpg", "jp1/4.jpg"],
-        [ {href: "https://github.com/ignurof/jetpack-doggo-1", text: "Source Code"},
-            { href: "https://itch.io", text: "Download"} ]
+        [ // Array with JSON Objects
+            { href: "https://github.com/ignurof/jetpackdoggo", text: "Source Code"},
+            { href: "https://ignurof.itch.io/jetpack-doggo", text: "Download"} 
+        ]
     );
     projectlist.AddProject(
         "Jetpack Doggo 2",
         "Text about the game",
         ["C#", "Unity"],
         ["jp2/1.jpg", "jp2/2.jpg", "jp2/3.jpg", "jp2/4.jpg"],
-        [ {href: "/", text: "Download"} ]
+        [ // Array with JSON Objects
+            { href: "https://github.com/ignurof/jetpackdoggo2", text: "Source Code"},
+            { href: "https://ignurof.itch.io/jetpack-doggo-2", text: "Download"} 
+        ]
     );
 
     // test editproject - TODO: THIS WORKS, ADD TO ADMIN ENDPOINT FUNCTIONALITY
