@@ -12,15 +12,11 @@
     export let images;
 
     // The projectCards are displayed in reverse order so going back would be going up
-    const PreviousProject = () => {
-        index += 1;
-        let apiUrl = `/showcase/project/${index}`;
-        location.href = apiUrl;
-    }
-
-    const NextProject = () => {
-        index -= 1;
-        let apiUrl = `/showcase/project/${index}`;
+    const ChangeProject = (previous) => {
+        // IF previous is true, +, else -
+        // Simple If-Else statement is better made with this ternary operator
+        let newIndex = (previous) ? (index += 1) : (index -= 1);
+        let apiUrl = `/showcase/project/${newIndex}`;
         location.href = apiUrl;
     }
 </script>
@@ -76,11 +72,11 @@
 
 <main>
     <div class="project-header">
-        <button on:click={PreviousProject}>
+        <button on:click={() => ChangeProject(true)}>
             .
         </button>
         <h2>{title}</h2>
-        <button on:click={NextProject}>
+        <button on:click={() => ChangeProject(false)}>
             .
         </button>
     </div>
