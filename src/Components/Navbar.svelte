@@ -102,11 +102,11 @@
 
     <div class="menu">
         {#if activePage === "about"}
-            <a href="/" class="activeSelection">About</a>
-            <a href="/showcase">Projects</a>
+            <a href="/about" class="activeSelection">About</a>
+            <a href="/">Projects</a>
         {:else if activePage === "projects"}
-            <a href="/">About</a>
-            <a href="/showcase" class="activeSelection">Projects</a>
+            <a href="/about">About</a>
+            <a href="/" class="activeSelection">Projects</a>
         {/if}
         
     </div>
