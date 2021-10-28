@@ -1,6 +1,9 @@
 <script>
     import Navbar from "../components/navbar.svelte";
 
+    // Projects
+    export let projectList;
+
     // This is also found in Navbar.svelte, 
     // so when I pass this exported var like this: <Navbar {coolQuote} /> it means I can use component nested exported var on the router in server.js
     export let coolQuote;
@@ -16,9 +19,22 @@
 
     // The projectCards are displayed in reverse order so going back would be going up
     const ChangeProject = (previous) => {
-        // IF previous is true, +, else -
         // Simple If-Else statement is better made with this ternary operator
-        let newIndex = (previous) ? (index += 1) : (index -= 1);
+        let maxIndex = projectList.length - 1;
+        console.log(maxIndex);
+        // This is a ternary operator that replace if-else statement which looks like this:
+        /* If(previous){
+            if(index < maxIndex){
+                ++index;
+            } else {
+                0;
+            }
+        } else {
+            --index;
+        }
+        */
+        // Loops around if index goes out of bounds ( go back if current index is less than maxIndex, go forward if currentIndex is greater than max index AKA larger number, maths)
+        let newIndex = (previous) ? (index < maxIndex ? ++index : 0) : (index == 0 ? maxIndex : --index);
         let apiUrl = `/project/${newIndex}`;
         newHref = apiUrl;
     }

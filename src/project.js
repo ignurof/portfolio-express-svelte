@@ -30,6 +30,7 @@ router.get("/:index", (req, res) => {
     // Render the page
     res.render("project", {
         coolQuote: quotegenerator.TheQuote(),
+        projectList: projectlist.GetProjectList(),
         index: indexValue,
         title: specProject.title,
         content: specProject.content,
