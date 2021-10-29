@@ -33,7 +33,7 @@
             --index;
         }
         */
-        // Loops around if index goes out of bounds ( go back if current index is less than maxIndex, go forward if currentIndex is greater than max index AKA larger number, maths)
+        // Loops around if index goes out of bounds ( go back if current index is less than maxIndex (raise number), go forward if currentIndex is greater than max index AKA larger number (lower number))
         let newIndex = (previous) ? (index < maxIndex ? ++index : 0) : (index == 0 ? maxIndex : --index);
         let apiUrl = `/project/${newIndex}`;
         newHref = apiUrl;
@@ -92,13 +92,22 @@
         color: #99A0A4;
     }
 
-    img{
-        width: 100%;
-        height: auto;
-        box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.25);
+    .img-card{
+        min-width: 100%;
+        min-height: 100px;
+        /* box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.25); */
         border-radius: .3em;
         margin-top: .4em; /* grid gap */
         margin-bottom: .4em;
+        background: rgba(0, 0, 0, 0.25); /* min-height adds some weird empty spacy, so im doingm my box shadow here kind of */
+        text-align: center;
+        color: #de5733;
+    }
+
+    img{
+        width: 100%;
+        height: auto;
+        border-radius: .3em;
     }
 
     p{
@@ -143,7 +152,9 @@
     <p>{content}</p>
     <div class="gallery">
         {#each images as image}
-            <img src={"/assets/img/" + image} alt="Alternative Text" />
+        <div class="img-card">
+            <img src={"/assets/img/" + image} alt={"Could not find image: " + image} />
+        </div>
         {/each}
     </div>
 </main>
