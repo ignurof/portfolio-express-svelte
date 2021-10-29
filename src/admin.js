@@ -1,7 +1,19 @@
 const express = require("express");
+const cors = require("cors");
 const router = express.Router();
 
 const aboutcontent = require("./aboutcontent.js");
+
+// CORS SETUP - This router acts as a new app so to speak, so the CORS here is independent from CORS in main server.js
+let corsOptions = {
+    "origin": 'http://admin.ignurof.xyz',
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
+}
+
+// Preflight request using corsOptions object, for all routes
+router.use(cors(corsOptions))
 
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
@@ -14,7 +26,7 @@ router.use(function timeLog (req, res, next) {
 router.get('/', function (req, res) {
     res.render("private/admin", {
     // Props here
-            
+        
     });
 });
 
