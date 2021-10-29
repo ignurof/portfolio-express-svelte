@@ -45,7 +45,7 @@
         display:flex;
         flex-direction: row;
         justify-content: center; /* Centrerar en flex */
-        margin-bottom: 2em;
+        
     }
 
     /* Positions the directional arrows more vertically aligned with title */
@@ -63,7 +63,7 @@
         display:flex;
         flex-direction: row;
         margin: 0 auto;
-        margin-bottom: 1em;
+        margin-bottom: 2em;
     }
 
     a{
