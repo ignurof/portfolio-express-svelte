@@ -42,13 +42,23 @@
             let response = await fetch(apiUrl, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json;charset=utf-8"
+                    "Content-Type": "application/json;charset=utf-8",
+                    "MinEgenHeader": "HelloWorld"
                 }, // Object needs to be converted to string to be sent over network
                 body: JSON.stringify(userDetails)
             });
 
-            let result = await response.text();
-            alert(result);
+            let result = await response.json();
+            console.log(result);
+            if(result.status === "invalidpw"){
+                alert("Incorrect password!");
+            } else if(result.status === "invaliduser"){
+                alert("User does not exist!");
+            }else if(result.status === "okloginpw"){
+                alert("Welcome!");
+            } else {
+                console.error("Something went wrong, error: response result from server");
+            }
         } else{
             console.error("Could not send data!");
         }

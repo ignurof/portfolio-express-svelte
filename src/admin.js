@@ -3,6 +3,7 @@ const cors = require("cors");
 const router = express.Router();
 
 const bcrypt = require("bcrypt");
+const md5 = require("blueimp-md5");
 
 const aboutcontent = require("./aboutcontent.js");
 
@@ -53,22 +54,42 @@ router.post('/about/:content', (req, res) => {
 router.post("/login", (req, res) => {
     console.log(req.body);
 
+    let responseObj = {
+        "status": "",
+        "canAdmin": "NO"
+    };
+
+    // Hardcore admin username
+    if(req.body.userName != "troll"){
+        responseObj.status = "invaliduser";
+        // Early return if username is not correct
+        return res.json(responseObj);
+    }
+
     // Compare the client password with the secure hash to see if password is correct
-    bcrypt.compare(req.body.passWord, secureHash, (err, result) => {
-        if(result) return console.log("YES ITS TRUE");
+    bcrypt.compare(req.body.ePassWord, secureHash, (err, result) => {
+        if(err) return console.error("ERROR! There is no secureHash.");
 
-        // Should not end up here due to early return
-        console.error("It not true tho");
+        if(!result){
+            // Early return from the method if error
+            responseObj.status = "invalidpw";
+            console.error("Invalid login attempt!");
+            return res.json(responseObj);
+        }
+
+        // We only end up here if successfull login
+        responseObj.status = "okloginpw";
+        responseObj.canAdmin = GenerateTimeStamp();
+        console.log("Successfull login attempt! :)");
+        res.json(responseObj);
     });
-
-    // Send back status to client if they can login or not
-    // This should also generate some time token on server that decide when to force logout this user after login
-    res.send("Hello World");
 });
 
 // Used to dev purposes only and will be removed. FIXME: REMOVE THIS BRUV
 router.get("/newadmin", (req, res) => {
     let myPw = "volSheb";
+    // Encrypt with md5 to match client
+    myPw = md5(myPw);
 
     // Test encrypt - Take password and encrypt it, then use this hash to compare to regular password if its correct
     // Can also compare two hashes against eachother to see if they were created with the same password ( FIXME:I THINK ? TODO: Tested, it works )
@@ -78,5 +99,13 @@ router.get("/newadmin", (req, res) => {
         secureHash = hash;
     });
 });
+
+// Generates a auth timestamp that can be used to verify access to admin routes
+const GenerateTimeStamp = () => {
+    // Get current time
+    let dateTime = Date.now();
+    dateTime = md5(dateTime);
+    return dateTime;
+}
   
 module.exports = router;
