@@ -42,8 +42,7 @@
             let response = await fetch(apiUrl, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json;charset=utf-8",
-                    "MinEgenHeader": "HelloWorld"
+                    "Content-Type": "application/json;charset=utf-8"
                 }, // Object needs to be converted to string to be sent over network
                 body: JSON.stringify(userDetails)
             });
@@ -55,14 +54,22 @@
             } else if(result.status === "invaliduser"){
                 alert("User does not exist!");
             }else if(result.status === "okloginpw"){
-                alert("Welcome!");
+                document.cookie = `auth=${result.canAdmin}`;
+                // TODO: Använd cookie-parser för att skapa cookies genom servern istället vid lyckad inloggning
             } else {
                 console.error("Something went wrong, error: response result from server");
             }
         } else{
             console.error("Could not send data!");
         }
-        
+    }
+
+    const GetCookie = () => {
+        let cookies = document.cookie;
+        let cookieObj = cookies.split('=');
+        // auth=stringhere; cookie2=string;
+        console.log(cookieObj[1]);
+        return cookieObj[1];
     }
 
     // Reactivity

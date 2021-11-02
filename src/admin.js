@@ -8,7 +8,8 @@ const md5 = require("blueimp-md5");
 const aboutcontent = require("./aboutcontent.js");
 
 // TODO: STORE THIS SOMEWHERE REASONABLE YO!
-let secureHash;
+let secureHash = "firstlogin";
+let authWhitelist = [];
 
 // CORS SETUP - This router acts as a new app so to speak, so the CORS here is independent from CORS in main server.js
 let corsOptions = {
@@ -42,17 +43,8 @@ router.get('/', (req, res) => {
     });
 });
 
-// Edit the about content text using POST request
-// Here I can grab :content like a regular param, very nice
-router.post('/about/:content', (req, res) => {
-    console.log(req.params.content);
-    aboutcontent.UpdateAboutText(req.params.content);
-    // Send it back so frontend can do something with it
-    res.send(req.params.content);
-});
-
 router.post("/login", (req, res) => {
-    console.log(req.body);
+    if(secureHash === "firstlogin") GenerateAdminPassword();
 
     let responseObj = {
         "status": "",
@@ -85,8 +77,42 @@ router.post("/login", (req, res) => {
     });
 });
 
-// Used to dev purposes only and will be removed. FIXME: REMOVE THIS BRUV
-router.get("/newadmin", (req, res) => {
+router.get("/home", (req, res) => {
+    if(!VerifyUserAuth(req.headers.userAuth)){
+        // False
+        console.error("Failed admin/home GET route attempt");
+        return res.redirect("/admin");
+    }
+
+    // TODO: Get the cookies from client and verify that auth token is correct like above, but with cookie
+
+    console.log("Admin/Home route used");
+    res.render("private/home", {
+        myVar: "Hej",
+    });
+});
+
+router.get('/about/', (req, res) => {
+    if(!VerifyUserAuth(req.headers.userAuth)){
+        // False
+        console.error("Failed admin/about route attempt");
+        return res.redirect("/admin");
+    }
+
+    //console.log(req.params.content);
+    //aboutcontent.UpdateAboutText(req.params.content);
+    // Send it back so frontend can do something with it
+    res.redirect("/");
+});
+
+const GetCookieValue = (theCookies) => {
+    let cookieString = theCookies;
+    let cookieArray = cookieString.split('=');
+    return cookieArray[1];
+}
+
+// Generate md5 hash from hardcore password and then encrypt and store on servervar
+const GenerateAdminPassword = () => {
     let myPw = "volSheb";
     // Encrypt with md5 to match client
     myPw = md5(myPw);
@@ -98,14 +124,31 @@ router.get("/newadmin", (req, res) => {
         console.log(hash);
         secureHash = hash;
     });
-});
+}
 
 // Generates a auth timestamp that can be used to verify access to admin routes
 const GenerateTimeStamp = () => {
     // Get current time
     let dateTime = Date.now();
     dateTime = md5(dateTime);
+    authWhitelist.push(dateTime);
     return dateTime;
+}
+
+// Used to lock admin routes behind auth
+const VerifyUserAuth = (uAuth) => {
+    let userIsAdmin = false;
+
+    for(let x = 0; x < authWhitelist.length; x++){
+        if(uAuth === authWhitelist[x]){
+            userIsAdmin = true;
+            // Early return if true
+            return userIsAdmin;
+        }
+    }
+
+    // Returns false if the early return didnt happen
+    return userIsAdmin;
 }
   
 module.exports = router;
