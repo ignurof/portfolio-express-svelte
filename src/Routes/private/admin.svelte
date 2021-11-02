@@ -1,19 +1,39 @@
 <script>
+    import validator from "validator/validator.js";
+    import md5 from "blueimp-md5/js/md5.js"; // This is giving a weird warning in VSCode but its working? FIXME: What is this declaration issue
+
     let name = "administration";
 
-    let userName, passWord;
+    let userName = "";
+    let passWord = "";
 
     // TODO: Gör så att den skickar värdena till server som då kollar om dom stämmer och isåfall skickar användaren rätt
     const AttemptLogin = async() => {
-        console.log(userName + " - " + passWord);
-
         // Verify integrity of input first before sending data
         let canSendData = true;
+
+        if(validator.isEmpty(userName)) {
+            console.error("Username is empty!");
+            canSendData = false;
+        }
+
+        if(validator.isEmpty(passWord)) {
+            console.error("Password is empty!");
+            canSendData = false;
+        }
+
+        // validator.escape() will convert HTML tags into HTML entities. https://linguinecode.com/post/validate-sanitize-user-input-javascript
+        // Sanitize the input by escaping the string, thus protecting against XSS
+        userName = validator.escape(userName);
+        passWord = validator.escape(passWord);
+
+        // Encrypt password
+        let ePassWord = md5(passWord);
 
         // Store user details inside JSON Object
         let userDetails = {
             userName,
-            passWord
+            ePassWord
         };
 
         // Only send data if input integrity has been verified
@@ -30,7 +50,7 @@
             let result = await response.text();
             alert(result);
         } else{
-            console.error("Could not login");
+            console.error("Could not send data!");
         }
         
     }

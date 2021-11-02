@@ -20,9 +20,11 @@
   "dependencies": {
     "axios": "^0.22.0",
     "bcrypt": "^5.0.1",
+    "blueimp-md5": "^2.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "svelte": "^3.44.0",
-    "svelte-view-engine": "github:Blade67/svelte-view-engine"
+    "svelte-view-engine": "github:Blade67/svelte-view-engine",
+    "validator": "^13.7.0"
   }
 }
