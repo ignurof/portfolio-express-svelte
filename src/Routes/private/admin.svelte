@@ -4,8 +4,35 @@
     let userName, passWord;
 
     // TODO: Gör så att den skickar värdena till server som då kollar om dom stämmer och isåfall skickar användaren rätt
-    const attemptLogin = () => {
-        console.log("Logged in");
+    const AttemptLogin = async() => {
+        console.log(userName + " - " + passWord);
+
+        // Verify integrity of input first before sending data
+        let canSendData = true;
+
+        // Store user details inside JSON Object
+        let userDetails = {
+            userName,
+            passWord
+        };
+
+        // Only send data if input integrity has been verified
+        if(canSendData){
+            let apiUrl = "/admin/login/";
+            let response = await fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json;charset=utf-8"
+                }, // Object needs to be converted to string to be sent over network
+                body: JSON.stringify(userDetails)
+            });
+
+            let result = await response.text();
+            alert(result);
+        } else{
+            console.error("Could not login");
+        }
+        
     }
 
     // Reactivity
@@ -35,6 +62,7 @@
         margin-top: 1em;
         margin-bottom: .4em;
         font-size: .8em;
+        font-weight:600;
     }
 
     input{
@@ -69,11 +97,11 @@
 
     <div class="login">
         <legend>USERNAME</legend>
-        <input type="text" />
+        <input type="text" bind:value={userName} />
         <div class="divider"></div>
         <legend>PASSWORD</legend>
-        <input type="password" />
-        <button>
+        <input type="password" bind:value={passWord} />
+        <button on:click={AttemptLogin}>
             LOGIN
         </button>
     </div>
