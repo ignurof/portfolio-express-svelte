@@ -34,12 +34,14 @@ if (env === "prod"){
     console.log("-- PROD --")
 
     // Force HTTPS on Production
+    /* FIXME: Jag behöver inte göra detta, för att Nginx gör redan det
     app.use((req, res, next) => {
         if (!req.secure) {
-            return response.redirect("https://" + req.headers.host + req.url);
+            return res.redirect("https://" + req.headers.host + req.url);
         }
         next();
     });
+    */
 }
 
 // CORS SETUP
