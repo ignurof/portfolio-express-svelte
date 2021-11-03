@@ -7,5 +7,5 @@
 </style>
 
 <main>
-    <Navbaradmin currentPage="about" />
+    <Navbaradmin currentPage="projects" />
 </main>

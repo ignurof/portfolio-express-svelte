@@ -9,7 +9,6 @@ const filehandler = require("./filehandler.js");
 const quotegenerator = require("./quotegenerator.js");
 const aboutcontent = require("./aboutcontent.js");
 const projectlist = require("./projectlist.js");
-const fs = require("fs");
 
 // Router
 const admin = require("./admin.js");
