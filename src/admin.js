@@ -82,7 +82,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.get("/home", (req, res) => {
+router.get("/about", (req, res) => {
     if(!VerifyUserAuth(req.cookies.auth)){
         // False
         console.error("Failed admin/home GET route attempt");
@@ -92,22 +92,9 @@ router.get("/home", (req, res) => {
     // TODO: Get the cookies from client and verify that auth token is correct like above, but with cookie
 
     console.log("Admin/Home route used");
-    res.render("private/home", {
-        myVar: "Hej",
+    res.render("private/aboutadmin", {
+        
     });
-});
-
-router.get('/about/', (req, res) => {
-    if(!VerifyUserAuth(req.cookies.auth)){
-        // False
-        console.error("Failed admin/about route attempt");
-        return res.redirect("/admin");
-    }
-
-    //console.log(req.params.content);
-    //aboutcontent.UpdateAboutText(req.params.content);
-    // Send it back so frontend can do something with it
-    res.redirect("/");
 });
 
 // Generate md5 hash from hardcore password and then encrypt and store on servervar

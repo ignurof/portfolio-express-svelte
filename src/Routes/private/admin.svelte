@@ -57,7 +57,7 @@
                 return alert("User does not exist!");
             }
             if(result.status === "OK"){
-                return location.href = "/admin/home/";
+                return location.href = "/admin/about/";
             }
 
             // Early returns should make it so we dont end up here unless 100% success
