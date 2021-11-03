@@ -85,16 +85,26 @@ router.post("/login", (req, res) => {
 router.get("/about", (req, res) => {
     if(!VerifyUserAuth(req.cookies.auth)){
         // False
-        console.error("Failed admin/home GET route attempt");
+        console.error("Failed Admin/About GET route attempt");
         return res.redirect("/admin");
     }
 
-    // TODO: Get the cookies from client and verify that auth token is correct like above, but with cookie
-
-    console.log("Admin/Home route used");
+    // Success
+    console.log("Admin/About route used");
     res.render("private/aboutadmin", {
         
     });
+});
+
+router.get("/projects", (req, res) => {
+    if(!VerifyUserAuth(req.cookies.auth)){
+        // False
+        console.error("Failed Admin/Projects GET route attempt");
+        return res.redirect("/admin");
+    }
+
+    // Success
+    console.log("Admin/Projects route used");
 });
 
 // Generate md5 hash from hardcore password and then encrypt and store on servervar
