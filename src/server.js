@@ -18,12 +18,31 @@ const about = require("./about.js");
 // Server and View Engine declarations
 let app = express();
 let engine = svelteViewEngine(config.svelteViewEngine);
-let { dir, type, buildDir } = config.svelteViewEngine;
+let { env, dir, type, buildDir } = config.svelteViewEngine;
 
 // View Engine setup
 app.engine(type, engine.render);
 app.set("view engine", type);
 app.set("views", dir);
+
+// Force HTTPS on Production
+const ForceSSL = (req, res, next) => {
+    // X-Forwarded-Proto is the thing nginx proxy does
+    // Taken from: https://stackoverflow.com/questions/7185074/heroku-nodejs-http-to-https-ssl-forced-redirect/23894573#23894573
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+        return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    }
+    // If we are HTTPS just move forward in flow
+    return next();
+};
+if(env === "dev"){
+    console.log("-- DEV --")
+}
+
+if (env === "prod"){
+    console.log("-- PROD --")
+    app.use(ForceSSL);
+}
 
 // CORS SETUP
 let corsOptions = {
