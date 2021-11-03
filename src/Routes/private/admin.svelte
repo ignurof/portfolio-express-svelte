@@ -49,16 +49,19 @@
 
             let result = await response.json();
             console.log(result);
+
             if(result.status === "invalidpw"){
-                alert("Incorrect password!");
-            } else if(result.status === "invaliduser"){
-                alert("User does not exist!");
-            }else if(result.status === "okloginpw"){
-                document.cookie = `auth=${result.canAdmin}`;
-                // TODO: Använd cookie-parser för att skapa cookies genom servern istället vid lyckad inloggning
-            } else {
-                console.error("Something went wrong, error: response result from server");
+                return alert("Incorrect password!");
             }
+            if(result.status === "invaliduser"){
+                return alert("User does not exist!");
+            }
+            if(result.status === "OK"){
+                return location.href = "/admin/home/";
+            }
+
+            // Early returns should make it so we dont end up here unless 100% success
+            console.log(document.cookie);
         } else{
             console.error("Could not send data!");
         }

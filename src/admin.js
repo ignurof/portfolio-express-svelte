@@ -4,12 +4,13 @@ const router = express.Router();
 
 const bcrypt = require("bcrypt");
 const md5 = require("blueimp-md5");
+const cookieParser = require('cookie-parser');
 
 const aboutcontent = require("./aboutcontent.js");
 
 // TODO: STORE THIS SOMEWHERE REASONABLE YO!
 let secureHash = "firstlogin";
-let authWhitelist = [];
+let authWhitelist = []; // FIXME: This whitelist currently gets reset on server shutdown/crash
 
 // CORS SETUP - This router acts as a new app so to speak, so the CORS here is independent from CORS in main server.js
 let corsOptions = {
@@ -18,6 +19,9 @@ let corsOptions = {
     "preflightContinue": false,
     "optionsSuccessStatus": 204
 }
+
+// Parse cookies
+router.use(cookieParser());
 
 // Parse JSON bodies for this app. Make sure you put
 // `app.use(express.json())` **before** your route handlers!
@@ -29,14 +33,16 @@ router.use(express.json());
 router.use(cors(corsOptions))
 
 // middleware that is specific to this router
-router.use(function timeLog (req, res, next) {
+router.use((req, res, next) => {
     console.log('Ran the Adminpanel router @ Time: ', Date.now());
     next();
 });
 
-// define the home page route
-// TODO: Detta borde vara en login sida av något slag
+// define the admin page route
 router.get('/', (req, res) => {
+    // Generate new admin password on first visit to admin route
+    if(secureHash === "firstlogin") GenerateAdminPassword();
+
     res.render("private/admin", {
     // Props here
         
@@ -44,8 +50,6 @@ router.get('/', (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-    if(secureHash === "firstlogin") GenerateAdminPassword();
-
     let responseObj = {
         "status": "",
         "canAdmin": "NO"
@@ -70,15 +74,16 @@ router.post("/login", (req, res) => {
         }
 
         // We only end up here if successfull login
-        responseObj.status = "okloginpw";
+        responseObj.status = "OK";
         responseObj.canAdmin = GenerateTimeStamp();
         console.log("Successfull login attempt! :)");
+        res.cookie("auth", responseObj.canAdmin);
         res.json(responseObj);
     });
 });
 
 router.get("/home", (req, res) => {
-    if(!VerifyUserAuth(req.headers.userAuth)){
+    if(!VerifyUserAuth(req.cookies.auth)){
         // False
         console.error("Failed admin/home GET route attempt");
         return res.redirect("/admin");
@@ -93,7 +98,7 @@ router.get("/home", (req, res) => {
 });
 
 router.get('/about/', (req, res) => {
-    if(!VerifyUserAuth(req.headers.userAuth)){
+    if(!VerifyUserAuth(req.cookies.auth)){
         // False
         console.error("Failed admin/about route attempt");
         return res.redirect("/admin");
@@ -104,12 +109,6 @@ router.get('/about/', (req, res) => {
     // Send it back so frontend can do something with it
     res.redirect("/");
 });
-
-const GetCookieValue = (theCookies) => {
-    let cookieString = theCookies;
-    let cookieArray = cookieString.split('=');
-    return cookieArray[1];
-}
 
 // Generate md5 hash from hardcore password and then encrypt and store on servervar
 const GenerateAdminPassword = () => {
