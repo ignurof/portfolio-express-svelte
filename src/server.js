@@ -9,6 +9,7 @@ const filehandler = require("./filehandler.js");
 const quotegenerator = require("./quotegenerator.js");
 const aboutcontent = require("./aboutcontent.js");
 const projectlist = require("./projectlist.js");
+const fs = require("fs");
 
 // Router
 const admin = require("./admin.js");
@@ -25,28 +26,26 @@ app.engine(type, engine.render);
 app.set("view engine", type);
 app.set("views", dir);
 
-// Force HTTPS on Production
-const ForceSSL = (req, res, next) => {
-    // X-Forwarded-Proto is the thing nginx proxy does
-    // Taken from: https://stackoverflow.com/questions/7185074/heroku-nodejs-http-to-https-ssl-forced-redirect/23894573#23894573
-    if (req.headers['x-forwarded-proto'] !== 'https') {
-        return res.redirect(['https://', req.get('Host'), req.url].join(''));
-    }
-    // If we are HTTPS just move forward in flow
-    return next();
-};
+// Verify runtime environment
 if(env === "dev"){
     console.log("-- DEV --")
 }
 
 if (env === "prod"){
     console.log("-- PROD --")
-    app.use(ForceSSL);
+
+    // Force HTTPS on Production
+    app.use((req, res, next) => {
+        if (!req.secure) {
+            return response.redirect("https://" + req.headers.host + req.url);
+        }
+        next();
+    });
 }
 
 // CORS SETUP
 let corsOptions = {
-    "origin": 'http://ignurof.xyz',
+    "origin": 'ignurof.xyz',
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
     "preflightContinue": false,
     "optionsSuccessStatus": 204

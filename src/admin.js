@@ -12,14 +12,6 @@ const aboutcontent = require("./aboutcontent.js");
 let secureHash = "firstlogin";
 let authWhitelist = []; // FIXME: This whitelist currently gets reset on server shutdown/crash
 
-// CORS SETUP - This router acts as a new app so to speak, so the CORS here is independent from CORS in main server.js
-let corsOptions = {
-    "origin": 'http://admin.ignurof.xyz',
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": false,
-    "optionsSuccessStatus": 204
-}
-
 // Parse cookies
 router.use(cookieParser());
 
@@ -28,9 +20,6 @@ router.use(cookieParser());
 // This means I dont have to JSON.parse in this router. Also that didnt work, I had to use this Express alternative
 // Now I can do res.json(JSONOBJHERE)
 router.use(express.json());
-
-// Preflight request using corsOptions object, for all routes
-router.use(cors(corsOptions))
 
 // middleware that is specific to this router
 router.use((req, res, next) => {
@@ -105,6 +94,9 @@ router.get("/projects", (req, res) => {
 
     // Success
     console.log("Admin/Projects route used");
+    res.render("private/projectsadmin", {
+
+    });
 });
 
 // Generate md5 hash from hardcore password and then encrypt and store on servervar
