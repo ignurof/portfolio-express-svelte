@@ -57,7 +57,7 @@ const DeleteProject = (index) => {
     if (index > -1) {
         projectList.splice(index, 1);
     }
-    console.log(projectList);
+    //console.log(projectList);
 
     //UpdateProjectList(newProjectList);
 }

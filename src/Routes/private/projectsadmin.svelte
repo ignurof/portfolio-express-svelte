@@ -3,30 +3,47 @@
 
     export let projectList;
 
+    let confirmWindow = false;
+
+    let projectIndex;
+
+    const SetIndex = (index) => {
+        // Show confirm window
+        ToggleConfirmWindow();
+
+        projectIndex = index;
+    }
+
     const DeleteProject = async(index) => {
+        if(index == 1337){
+            index = projectIndex;
+        }
+
         let apiUrl = `/admin/projects/delete/${index}`;
         let response = await fetch(apiUrl, {
             method: "POST"
         });
         // Error check
         if(!response.ok){
-            console.error("ERROR!!!!");
+            // Early return out this bish
+            return console.error("ERROR!!!!");
         }
 
         // Parse the object sent by server
-        let result = response.json();
-
-        if(result != undefined){
-            // Update projectList 
+        let result = await response.json();
+        if(result.status === "OK"){
+            // Update projectList
             projectList = result.projectList;
-            return UpdatePage(); // Early return out this bish
+            //console.log(projectList);
+            // Remove confirm window
+            ToggleConfirmWindow();
         }
-        
-        console.error("UNDEFINED RESULT");
     }
 
-    const UpdatePage = () => {
-        location.href = "/admin/projects";
+    // Should run at the end of a confirm action
+    const ToggleConfirmWindow = () => {
+        // If is true, set to false, else set to true
+        confirmWindow = (confirmWindow ? confirmWindow = false : confirmWindow = true);
     }
 </script>
 
@@ -92,12 +109,20 @@
 <main>
     <Navbaradmin currentPage="projects" />
 
+    {#if confirmWindow}
+        <div class="confirm-modal">
+            <p>Confirm delete?</p>
+            <button on:click={() => DeleteProject(1337)}>Yes</button>
+            <button on:click={() => ToggleConfirmWindow()}>No</button>
+        </div>
+    {/if}
+
     <div class="project-admin">
         <div class="project-list">
             {#each projectList as {title}, i}
                 <div class="project-item">
                     <h4>{title}</h4>
-                    <button on:click={() => DeleteProject(i)}>X</button>
+                    <button on:click={() => SetIndex(i)}>X</button>
                 </div>
             {/each}
         </div>

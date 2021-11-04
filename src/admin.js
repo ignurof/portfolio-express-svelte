@@ -119,6 +119,7 @@ router.post("/projects/delete/:index", (req, res) => {
     projectlist.DeleteProject(req.params.index);
 
     let responseObj = {
+        "status": "OK",
         "projectList": projectlist.GetProjectList()
     };
     // Auto parsed by Express.json middleware
