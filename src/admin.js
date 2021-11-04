@@ -1,5 +1,12 @@
-require('dotenv').config(); // Loads dotenv file into server usage: process.env.NAME
+const dotenvResult = require('dotenv').config(); // Loads dotenv file into server usage: process.env.NAME
 
+if(dotenvResult.error){
+    throw dotenvResult.error;
+}
+
+console.log(dotenvResult.parsed);
+
+// Dependency imports
 const express = require("express");
 const router = express.Router();
 
