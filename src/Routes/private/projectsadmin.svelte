@@ -43,7 +43,7 @@
     // Should run at the end of a confirm action
     const ToggleConfirmWindow = () => {
         // If is true, set to false, else set to true
-        confirmWindow = (confirmWindow ? confirmWindow = false : confirmWindow = true);
+        confirmWindow = !confirmWindow;
     }
 </script>
 
