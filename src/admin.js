@@ -13,6 +13,7 @@ const md5 = require("blueimp-md5");
 const cookieParser = require('cookie-parser');
 
 const authwhitelist = require("./authwhitelist.js");
+const projectlist = require("./projectlist.js");
 
 // Parse cookies so they can be interacted with
 router.use(cookieParser());
@@ -60,7 +61,7 @@ router.post("/login", (req, res) => {
 
         // We only end up here if successfull login
         responseObj.status = "OK";
-        // Reset authWhitelist so that this new user is the only allowed auth. TODO: Should be timer based instead
+        // Reset authWhitelist so that this new user is the only allowed auth. TODO: Should be timer based instead but since only one admin account is a thing, this is ok
         authwhitelist.ResetAuthList();
         // Adds the user to authWhitelist
         responseObj.canAdmin = GenerateTimeStamp();
@@ -93,15 +94,30 @@ router.get("/projects", (req, res) => {
         console.error("Failed Admin/Projects GET route attempt");
         return res.render("private/admin", {
             // Props here
-                
-            });
+            
+        });
     }
 
     // Success
     console.log("Admin/Projects route used");
     res.render("private/projectsadmin", {
-
+        projectList: projectlist.GetProjectList(),
     });
+});
+
+router.post("/projects/delete/:index", (req, res) => {
+    if(!VerifyUserAuth(req.cookies.auth)){
+        // False
+        console.error("Failed Admin/Projects/Delete POST route attempt");
+        return res.render("private/admin", {
+            // Props here
+            
+        });
+    }
+
+    // Success
+    projectlist.DeleteProject(req.params.index);
+    res.redirect("/admin/projects");
 });
 
 // Generate md5 hash from hardcore password and then encrypt and store on servervar

@@ -51,10 +51,22 @@ const EditProject = (index, title, content, tags, images, links) => {
     });
 }
 
+const DeleteProject = (index) => {
+    // Create a list list array with the specified index removed if it exists
+    let newProjectList = projectList.filter((i) => {
+        if(index != i) return;
+
+        i == index;
+    });
+
+    UpdateProjectList(newProjectList);
+}
+
 module.exports = {
     UpdateProjectList,
     AddProject,
     GetProjectList,
     EditProject,
-    GetSpecificProject
+    GetSpecificProject,
+    DeleteProject
 };
