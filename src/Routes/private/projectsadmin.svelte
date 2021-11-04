@@ -15,11 +15,18 @@
 
         // Parse the object sent by server
         let result = response.json();
-        if(result.ok === "OK"){
+
+        if(result != undefined){
             // Update projectList 
-            //console.log(result.projectList);
             projectList = result.projectList;
+            return UpdatePage(); // Early return out this bish
         }
+        
+        console.error("UNDEFINED RESULT");
+    }
+
+    const UpdatePage = () => {
+        location.href = "/admin/projects";
     }
 </script>
 
