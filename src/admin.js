@@ -1,18 +1,14 @@
 require('dotenv').config(); // Loads dotenv file into server usage: process.env.NAME
 
 const express = require("express");
-const cors = require("cors");
 const router = express.Router();
 
 const bcrypt = require("bcrypt");
 const md5 = require("blueimp-md5");
 const cookieParser = require('cookie-parser');
 
-const aboutcontent = require("./aboutcontent.js");
-
-// TODO: STORE THIS SOMEWHERE REASONABLE YO!
-let secureHash = "firstlogin";
-let authWhitelist = []; // FIXME: This whitelist currently gets reset on server shutdown/crash (and it should probably get reset on timer)
+// FIXME: This whitelist currently gets reset on server shutdown/crash (and it should probably get reset on timer)
+let authWhitelist = []; 
 
 // Parse cookies
 router.use(cookieParser());
@@ -31,9 +27,6 @@ router.use((req, res, next) => {
 
 // define the admin page route
 router.get('/', (req, res) => {
-    // Generate new admin password on first visit to admin route
-    if(secureHash === "firstlogin") GenerateAdminPassword();
-
     res.redirect("/admin/about");
 });
 
@@ -51,8 +44,8 @@ router.post("/login", (req, res) => {
     }
 
     // Compare the client password with the secure hash to see if password is correct
-    bcrypt.compare(req.body.ePassWord, secureHash, (err, result) => {
-        if(err) return console.error("ERROR! There is no secureHash.");
+    bcrypt.compare(req.body.ePassWord, process.env.SECUREHASH, (err, result) => {
+        if(err) return console.error("ERROR! There is no SECUREHASH.");
 
         if(!result){
             // Early return from the method if error
@@ -105,8 +98,9 @@ router.get("/projects", (req, res) => {
 });
 
 // Generate md5 hash from hardcore password and then encrypt and store on servervar
+/* FIXME: Only used for generating the pw hash (password -> md5 -> bcrypt)
 const GenerateAdminPassword = () => {
-    let myPw = "volSheb";
+    let myPw = "";
     // Encrypt with md5 to match client
     myPw = md5(myPw);
 
@@ -118,6 +112,7 @@ const GenerateAdminPassword = () => {
         secureHash = hash;
     });
 }
+*/
 
 // Generates a auth timestamp that can be used to verify access to admin routes
 const GenerateTimeStamp = () => {
