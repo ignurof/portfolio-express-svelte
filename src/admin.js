@@ -4,8 +4,6 @@ if(dotenvResult.error){
     throw dotenvResult.error;
 }
 
-console.log(dotenvResult.parsed);
-
 // Dependency imports
 const express = require("express");
 const router = express.Router();
@@ -14,10 +12,9 @@ const bcrypt = require("bcrypt");
 const md5 = require("blueimp-md5");
 const cookieParser = require('cookie-parser');
 
-// FIXME: This whitelist currently gets reset on server shutdown/crash (and it should probably get reset on timer)
-let authWhitelist = []; 
+const authwhitelist = require("./authwhitelist.js");
 
-// Parse cookies
+// Parse cookies so they can be interacted with
 router.use(cookieParser());
 
 // Parse JSON bodies for this app. Make sure you put
@@ -63,6 +60,9 @@ router.post("/login", (req, res) => {
 
         // We only end up here if successfull login
         responseObj.status = "OK";
+        // Reset authWhitelist so that this new user is the only allowed auth. TODO: Should be timer based instead
+        authwhitelist.ResetAuthList();
+        // Adds the user to authWhitelist
         responseObj.canAdmin = GenerateTimeStamp();
         console.log("Successfull login attempt! :)");
         res.cookie("auth", responseObj.canAdmin);
@@ -126,13 +126,14 @@ const GenerateTimeStamp = () => {
     // Get current time
     let dateTime = Date.now();
     dateTime = md5(dateTime);
-    authWhitelist.push(dateTime);
+    authwhitelist.AddToAuth(dateTime);
     return dateTime;
 }
 
 // Used to lock admin routes behind auth
 const VerifyUserAuth = (uAuth) => {
     let userIsAdmin = false;
+    let authWhitelist = authwhitelist.GetAuthList();
 
     for(let x = 0; x < authWhitelist.length; x++){
         if(uAuth === authWhitelist[x]){
