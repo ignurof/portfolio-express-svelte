@@ -10,7 +10,7 @@ const aboutcontent = require("./aboutcontent.js");
 
 // TODO: STORE THIS SOMEWHERE REASONABLE YO!
 let secureHash = "firstlogin";
-let authWhitelist = []; // FIXME: This whitelist currently gets reset on server shutdown/crash
+let authWhitelist = []; // FIXME: This whitelist currently gets reset on server shutdown/crash (and it should probably get reset on timer)
 
 // Parse cookies
 router.use(cookieParser());
@@ -32,10 +32,7 @@ router.get('/', (req, res) => {
     // Generate new admin password on first visit to admin route
     if(secureHash === "firstlogin") GenerateAdminPassword();
 
-    res.render("private/admin", {
-    // Props here
-        
-    });
+    res.redirect("/admin/about");
 });
 
 router.post("/login", (req, res) => {
@@ -75,7 +72,10 @@ router.get("/about", (req, res) => {
     if(!VerifyUserAuth(req.cookies.auth)){
         // False
         console.error("Failed Admin/About GET route attempt");
-        return res.redirect("/admin");
+        return res.render("private/admin", {
+            // Props here
+                
+            });
     }
 
     // Success
@@ -89,7 +89,10 @@ router.get("/projects", (req, res) => {
     if(!VerifyUserAuth(req.cookies.auth)){
         // False
         console.error("Failed Admin/Projects GET route attempt");
-        return res.redirect("/admin");
+        return res.render("private/admin", {
+            // Props here
+                
+            });
     }
 
     // Success
