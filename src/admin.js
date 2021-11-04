@@ -1,3 +1,5 @@
+require('dotenv').config(); // Loads dotenv file into server usage: process.env.NAME
+
 const express = require("express");
 const cors = require("cors");
 const router = express.Router();
