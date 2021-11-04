@@ -3,8 +3,23 @@
 
     export let projectList;
 
-    const DeleteProject = () => {
+    const DeleteProject = async(index) => {
+        let apiUrl = `/admin/projects/delete/${index}`;
+        let response = await fetch(apiUrl, {
+            method: "POST"
+        });
+        // Error check
+        if(!response.ok){
+            console.error("ERROR!!!!");
+        }
 
+        // Parse the object sent by server
+        let result = response.json();
+        if(result.ok === "OK"){
+            // Update projectList 
+            //console.log(result.projectList);
+            projectList = result.projectList;
+        }
     }
 </script>
 
@@ -75,7 +90,7 @@
             {#each projectList as {title}, i}
                 <div class="project-item">
                     <h4>{title}</h4>
-                    <button on:click={() => {DeleteProject(i)}}>X</button>
+                    <button on:click={() => DeleteProject(i)}>X</button>
                 </div>
             {/each}
         </div>

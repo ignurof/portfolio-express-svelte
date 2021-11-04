@@ -53,13 +53,13 @@ const EditProject = (index, title, content, tags, images, links) => {
 
 const DeleteProject = (index) => {
     // Create a list list array with the specified index removed if it exists
-    let newProjectList = projectList.filter((i) => {
-        if(index != i) return;
+    // https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
+    if (index > -1) {
+        projectList.splice(index, 1);
+    }
+    console.log(projectList);
 
-        i == index;
-    });
-
-    UpdateProjectList(newProjectList);
+    //UpdateProjectList(newProjectList);
 }
 
 module.exports = {

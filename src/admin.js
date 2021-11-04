@@ -114,10 +114,16 @@ router.post("/projects/delete/:index", (req, res) => {
             
         });
     }
-
+    //console.log(req.params.index);
     // Success
     projectlist.DeleteProject(req.params.index);
-    res.redirect("/admin/projects");
+
+    let responseObj = {
+        "status": "OK",
+        "projectList": projectlist.GetProjectList()
+    };
+    // Auto parsed by Express.json middleware
+    res.json(responseObj);
 });
 
 // Generate md5 hash from hardcore password and then encrypt and store on servervar
