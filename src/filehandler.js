@@ -1,14 +1,19 @@
 const fs = require("fs");
 
 // This returns a servervar JSON object thats been read from file if the file existed on server startup
-const InitFile = (fileName, jsonObj) => {
+const InitFile = (fileName) => {
     fs.stat(fileName, (err) => {
         if(err == null){
             // File exist, read it and update server vars
             ReadFile(fileName);
         } else if(err.code === "ENOENT"){
             // File does not exist, create one
-            GenerateFile(fileName, jsonObj);
+            let data = "filecontentsplaceholder";
+            fs.writeFile(fileName, data, (err) => {
+                if(err) return console.error("Create file error");
+
+                console.log("Created file" + fileName);
+            })
         } else{
             throw err;
         }

@@ -57,6 +57,37 @@
         projectList = result.projectList;
     }
 
+    const AddProject = async() => {
+        // Declare JSON Object that be used in fetch calls
+        // Self-referencing example
+        let projectObj = {
+            "title": "Project Name",
+            "content": "Content field here",
+            "tags": ["Techstack"],
+            "images": ["folder/filename.filetype"],
+            "links": ["https://link.com#Display Text Here after the hashtag"]
+        }
+
+        let apiUrl = `/admin/projects/add`;
+        let response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            }, // Object needs to be converted to string to be sent over network
+            body: JSON.stringify(projectObj)
+        });
+        // Error check
+        if(!response.ok){
+            // Early return out this bish
+            return console.error("ERROR!!!!");
+        }
+
+        // Parse the object sent by server
+        let result = await response.json();
+        // Update projectList
+        projectList = result.projectList;
+    }
+
     // Should run at the end of a confirm action
     const ToggleConfirmWindow = () => {
         // If is true, set to false, else set to true
@@ -224,7 +255,7 @@
                 </div>
             {/each}
             <div class="project-item-newproject">
-                <h4 on:click={() => SetProjectData("title", "content", ["tags"], ["images"], ["links"])}>CREATE</h4>
+                <h4 on:click={() => AddProject()}>CREATE</h4>
             </div>
         </div>
         <div class="project-details-card">

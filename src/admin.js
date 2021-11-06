@@ -147,6 +147,26 @@ router.post("/projects/edit/:index", (req, res) => {
     res.json(responseObj);
 });
 
+router.post("/projects/add", (req, res) => {
+    if(!VerifyUserAuth(req.cookies.auth)){
+        // False
+        console.error("Failed Admin/Projects/Delete POST route attempt");
+        return res.render("private/admin", {
+            // Props here
+            
+        });
+    }
+
+    projectlist.AddProject(req.body.title, req.body.content, req.body.tags, req.body.images, req.body.links);
+
+    let responseObj = {
+        "status": "OK",
+        "projectList": projectlist.GetProjectList()
+    };
+    // Auto parsed by Express.json middleware
+    res.json(responseObj);
+})
+
 // Generate md5 hash from hardcore password and then encrypt and store on servervar
 /* FIXME: Only used for generating the pw hash (password -> md5 -> bcrypt)
 const GenerateAdminPassword = () => {
