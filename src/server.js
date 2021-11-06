@@ -87,9 +87,6 @@ app.use("/project", project);
 app.listen(config.port, () => {
     console.log("Server started on port http://localhost:" + config.port);
 
-    // Run the quotegenerator FIXME: Disabled the kanye quotes as they are inappropriate but I want to keep the code for reference unti later
-    //quotegenerator.GetQuote();
-
     // Init files (create if not exist, read if they do)
     filehandler.InitFile("about", aboutcontent.GetAboutText());
     filehandler.InitFile("projectlist", projectlist.GetProjectList());
@@ -100,20 +97,14 @@ app.listen(config.port, () => {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         ["C#", "Unity"],
         ["jp1/1.jpg", "jp1/2.jpg", "jp1/3.jpg", "jp1/4.jpg"],
-        [ // Array with JSON Objects
-            { href: "https://github.com/ignurof/jetpackdoggo", text: "Source Code"},
-            { href: "https://ignurof.itch.io/jetpack-doggo", text: "Download"} 
-        ]
+        ["https://github.com/ignurof/jetpackdoggo#Source Code", "https://ignurof.itch.io/jetpack-doggo#Download"]
     );
     projectlist.AddProject(
         "Jetpack Doggo 2",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         ["C#", "Unity"],
         ["jp2/1.jpg", "jp2/2.jpg", "jp2/3.jpg", "jp2/4.jpg"],
-        [ // Array with JSON Objects
-            { href: "https://github.com/ignurof/jetpackdoggo2", text: "Source Code"},
-            { href: "https://ignurof.itch.io/jetpack-doggo-2", text: "Download"} 
-        ]
+        ["https://github.com/ignurof/jetpackdoggo2#Source Code", "https://ignurof.itch.io/jetpack-doggo-2#Download"]
     );
 
     // test editproject - TODO: THIS WORKS, ADD TO ADMIN ENDPOINT FUNCTIONALITY

@@ -126,6 +126,27 @@ router.post("/projects/delete/:index", (req, res) => {
     res.json(responseObj);
 });
 
+router.post("/projects/edit/:index", (req, res) => {
+    if(!VerifyUserAuth(req.cookies.auth)){
+        // False
+        console.error("Failed Admin/Projects/Delete POST route attempt");
+        return res.render("private/admin", {
+            // Props here
+            
+        });
+    }
+    //console.log(req.body.title);
+    // Success
+    projectlist.EditProject(req.params.index, req.body.title, req.body.content, req.body.tags, req.body.images, req.body.links);
+
+    let responseObj = {
+        "status": "OK",
+        "projectList": projectlist.GetProjectList()
+    };
+    // Auto parsed by Express.json middleware
+    res.json(responseObj);
+});
+
 // Generate md5 hash from hardcore password and then encrypt and store on servervar
 /* FIXME: Only used for generating the pw hash (password -> md5 -> bcrypt)
 const GenerateAdminPassword = () => {
