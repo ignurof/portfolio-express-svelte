@@ -4,8 +4,21 @@
     export let projectList;
 
     let confirmWindow = false;
+    let deleteTarget;
 
-    const DeleteProject = async(index) => {
+    const SetDeleteTarget = (newTarget) => {
+        deleteTarget = newTarget;
+
+        ToggleConfirmWindow();
+    }
+
+    const ToggleConfirmWindow = () => {
+        confirmWindow = !confirmWindow;
+    }
+
+    const DeleteProject = async() => {
+        let index = deleteTarget;
+
         let apiUrl = `/admin/projects/delete/${index}`;
         let response = await fetch(apiUrl, {
             method: "POST"
@@ -20,24 +33,24 @@
         let result = await response.json();
         // Update projectList
         projectList = result.projectList;
-        // Remove confirm window
+        // Remove togglewindow
         ToggleConfirmWindow();
     }
 
-    const EditProject = async(index) => {
+    const EditProject = async() => {
         // Send only if pIndex is available
         if(pIndex === undefined || pIndex === null) return console.error("pIndex is not here");
 
         // Declare JSON Object that be used in fetch calls
         let projectObj = {
-            "title": projectList[pIndex].title,
-            "content": projectList[pIndex].content,
-            "tags": projectList[pIndex].tags,
-            "images": projectList[pIndex].images,
-            "links": projectList[pIndex].links
+            "title": pTitle,
+            "content": pContent,
+            "tags": pTags,
+            "images": pImages,
+            "links": pLinks
         }
 
-        let apiUrl = `/admin/projects/edit/${index}`;
+        let apiUrl = `/admin/projects/edit/${pIndex}`;
         let response = await fetch(apiUrl, {
             method: "POST",
             headers: {
@@ -86,12 +99,6 @@
         let result = await response.json();
         // Update projectList
         projectList = result.projectList;
-    }
-
-    // Should run at the end of a confirm action
-    const ToggleConfirmWindow = () => {
-        // If is true, set to false, else set to true
-        confirmWindow = !confirmWindow;
     }
 
     // Declare them so they are correct at runtime
@@ -150,6 +157,7 @@
         border-radius: .3em;
         width: 100%;
         margin-bottom: 1em;
+        height: 3em;
     }
 
     .project-item h4:hover{
@@ -157,9 +165,6 @@
     }
 
     .project-item-newproject{
-        display:flex;
-        flex-direction: row;
-        justify-content: center;
         border: 0;
         background: #038A7A;
         color: #EDF7F7;
@@ -168,6 +173,10 @@
         border-radius: .4em;
         cursor: pointer;
         width: 100%;
+        height: 2em;
+        text-align: center;
+        padding-top: .5em;
+        padding-bottom: .5em;
     }
 
     .project-list{
@@ -232,18 +241,60 @@
         margin-left: 1em;
         margin-right: 1em;
         margin-bottom: 1em;
-    } 
+    }
+
+    .confirm-modal{
+        position: fixed; /* Stay in place */
+        z-index: 2; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+    }
+
+    .confirm-modal div{
+        background: #EDF7F7;
+        color: black;
+        box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.25);
+        border-radius: .3em;
+        width: 10em;
+        margin: 12em auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .confirm-modal button{
+        border: 0;
+        background: #038A7A;
+        color: #EDF7F7;
+        font-weight: bold;
+        font-size: 1em;
+        border-radius: .4em;
+        cursor: pointer;
+        width: 50%;
+        margin: .6em auto;
+        padding: .2em;
+    }
+
+    .confirm-modal h4{
+        text-align: center;
+        margin: .6em;
+    }
 </style>
 
 <main>
     <Navbaradmin currentPage="projects" />
 
     {#if confirmWindow}
-        <div class="confirm-modal">
-            <p>Confirm delete?</p>
-            <button on:click={() => DeleteProject(pIndex)}>Yes</button>
-            <button on:click={() => ToggleConfirmWindow()}>No</button>
+    <div class="confirm-modal">
+        <div>
+            <h4>Delete Project?</h4>
+            <button on:click={() => DeleteProject()}>YES</button>
+            <button on:click={() => ToggleConfirmWindow()}>NO</button>
         </div>
+    </div>
     {/if}
 
     <div class="project-admin">
@@ -251,11 +302,11 @@
             {#each projectList as {title}, i}
                 <div class="project-item">
                     <h4 on:click={() => SetProjectData(i)}>{title}</h4>
-                    <button on:click={() => ToggleConfirmWindow()}>X</button>
+                    <button on:click={() => SetDeleteTarget(i)}>X</button>
                 </div>
             {/each}
             <div class="project-item-newproject">
-                <h4 on:click={() => AddProject()}>CREATE</h4>
+                <button on:click={() => AddProject()}>CREATE</button>
             </div>
         </div>
         <div class="project-details-card">
@@ -285,7 +336,7 @@
                     <input type="text" bind:value={link} />
                 {/each}
             {/if}
-            <button on:click={() => EditProject(pIndex)}>Update</button>
+            <button on:click={() => EditProject()}>Update</button>
         </div>
     </div>
 </main>
