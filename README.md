@@ -1,8 +1,6 @@
 # portfolio-express-svelte
 
 ## Setup instructions
-- npm i express
-- npm i svelte-view-engine
-- npm i svelte
+- npm install
 
 Don't forget to maintain a proper file structure for the project for sanity purposes.
