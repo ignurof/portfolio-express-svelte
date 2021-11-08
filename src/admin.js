@@ -89,6 +89,21 @@ router.get("/about", (req, res) => {
     });
 });
 
+router.post("/about/edit/:aboutString", (req, res) => {
+    if(!VerifyUserAuth(req.cookies.auth)){
+        // False
+        console.error("Failed Admin/About POST route attempt");
+        return res.render("private/admin", {
+            // Props here
+                
+            });
+    }
+
+    // Success
+    console.log("Admin/About POST route used: " + req.params.aboutString);
+    aboutcontent.UpdateAboutText(req.params.aboutString);
+});
+
 router.get("/projects", (req, res) => {
     if(!VerifyUserAuth(req.cookies.auth)){
         // False

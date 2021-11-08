@@ -424,7 +424,7 @@
                     {/if}
                 </div>
             {/if}
-            <button on:click={() => EditProject()}>Update</button>
+            <button on:click={() => EditProject()}>UPDATE</button>
         </div>
     </div>
 </main>
