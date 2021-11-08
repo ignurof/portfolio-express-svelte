@@ -137,8 +137,25 @@
         UpdateProjectData();
     }
 
+    const RemoveFields = (choice) => {
+        if(choice === "tag"){
+            if(pTags.length <= 0) return;
+            pTags.splice(pTags.length - 1, 1);
+        }else if(choice === "images"){
+            if(pImages.length <= 0) return;
+            pImages.splice(pImages.length - 1, 1);
+        }else if(choice === "links"){
+            if(pLinks.length <= 0) return;
+            pLinks.splice(pLinks.length - 1, 1);
+        }
+
+        UpdateProjectData();
+    }
+
     // Reactively run UpdateCurrentProject() whenever pIndex gets changed
     $: pIndex, UpdateProjectData();
+
+    //TODO: Styla project-details-card och se till så den ser snygg och enhetlig ut också 
 </script>
 
 <style>
@@ -146,37 +163,6 @@
         display:flex;
         flex-direction: row;
         justify-content: center;
-    }
-
-    .project-item{
-        display:flex;
-        flex-direction: row;
-        background: #EDF7F7;
-        color: black;
-        box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.25);
-        border-radius: .3em;
-        width: 100%;
-        margin-bottom: 1em;
-        height: 3em;
-    }
-
-    .project-item h4:hover{
-        color: #038A7A;
-    }
-
-    .project-item-newproject{
-        border: 0;
-        background: #038A7A;
-        color: #EDF7F7;
-        font-weight: bold;
-        font-size: 1em;
-        border-radius: .4em;
-        cursor: pointer;
-        width: 100%;
-        height: 2em;
-        text-align: center;
-        padding-top: .5em;
-        padding-bottom: .5em;
     }
 
     .project-list{
@@ -190,57 +176,117 @@
             margin: 1em;
         }
 
-        .project-list button{
-            border: 0;
-            background: #038A7A;
-            color: #EDF7F7;
-            font-weight: bold;
-            font-size: 1em;
-            border-radius: .4em;
-            cursor: pointer;
-            margin-top: .4em;
-            margin-bottom: .4em;
-            margin-left: auto;
-            margin-right: .4em;
-            width: 24%;
-        }
+    .project-item{
+        display:flex;
+        flex-direction: row;
+        background: #EDF7F7;
+        color: black;
+        box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.25);
+        border-radius: .3em;
+        width: 100%;
+        margin-bottom: 1em;
+        height: 3em;
+    }
 
-        .project-list button:hover{
-            color: red;
-        }
+    .project-item button{
+        border: 0;
+        background: #038A7A;
+        color: #EDF7F7;
+        font-weight: bold;
+        font-size: 1em;
+        border-radius: .4em;
+        cursor: pointer;
+        margin-top: .4em;
+        margin-bottom: .4em;
+        margin-left: auto;
+        margin-right: .4em;
+        width: 24%;
+    }
+
+    .project-item button:hover{
+        color: red;
+    }
+
+    .project-item h4:hover{
+        color: #038A7A;
+    }
+
+    .project-item-newproject{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .project-item-newproject button{
+        border: 0;
+        background: #038A7A;
+        color: #EDF7F7;
+        font-weight: bold;
+        font-size: 1em;
+        border-radius: .4em;
+        cursor: pointer;
+        height: 3em;
+    }
 
     .project-details-card{
+        display:flex;
+        flex-direction: column;
         background: #EDF7F7;
         color: black;
         box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.25);
         border-radius: .3em;
         margin-left: 1em;
-        display: flex;
-        flex-direction: column;
         width: 66%;
+        padding: 1em;
+    }
+
+    .project-details-card button{
+        border: 0;
+        background: #038A7A;
+        color: #EDF7F7;
+        font-weight: bold;
+        font-size: 1em;
+        border-radius: .4em;
+        cursor: pointer;
+        margin-top: 1em;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: .2em;
+        padding: 1em;
     }
 
     legend{
-        margin-bottom: .6em;
-        margin-top: .6em;
-        margin-left: .5em;
+        font-size: 1em;
         font-weight: 600;
+        margin-bottom: .2em;
     }
 
-    legend span {
-        font-size: 1.2em;
-        color: #EDF7F7;
-        background: #038A7A;
-        padding: .2em;
-        border-radius: .6em;
-        margin-left: .4em;
+    svg {
+        color: #038A7A;
         cursor: pointer;
+        width: 1em;
+    }
+
+    .icons{
+        display:flex;
+        flex-direction: row;
     }
 
     input{
-        margin-left: 1em;
-        margin-right: 1em;
-        margin-bottom: 1em;
+        border:0;
+        background: #1D2E35;
+        color: #EDF7F7;
+        border-radius: .3em;
+        font-size: .8em;
+        height: 2em;
+        margin-bottom: .2em;
+        padding-left: .4em;
+        padding-right: .4em;
+    }
+
+    .divider{
+        margin-top: .6em;
+        margin-bottom: .6em;
     }
 
     .confirm-modal{
@@ -314,27 +360,69 @@
             {#if pTitle != null}
                 <input type="text" bind:value={pTitle} />                
             {/if}
+            <div class="divider"></div>
             <legend>CONTENT</legend>
             {#if pContent != null}
                 <input type="text" bind:value={pContent} />
             {/if}
-            <legend>TAGS<span on:click={() => AddFields("tag")}>+</span></legend>
+            <div class="divider"></div>
+            <legend>
+                TAGS
+            </legend>
             {#if pTags != null}
                 {#each pTags as tag}
                     <input type="text" bind:value={tag} />
                 {/each}
+                <div class="icons">
+                    {#if pTags.length <= 4}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" on:click={() => AddFields("tag")}>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                        </svg>
+                    {/if}
+                    {#if pTags.length >= 1}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" on:click={() => RemoveFields("tag")}>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+                        </svg>
+                    {/if}
+                </div>
             {/if}
+            <div class="divider"></div>
             <legend>IMAGES</legend>
             {#if pImages != null}
                 {#each pImages as image}
                     <input type="text" bind:value={image} />
                 {/each}
+                <div class="icons">
+                    {#if pImages.length <= 4}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" on:click={() => AddFields("images")}>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                        </svg>
+                    {/if}
+                    {#if pImages.length >= 1}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" on:click={() => RemoveFields("images")}>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+                        </svg>
+                    {/if}
+                </div>
             {/if}
+            <div class="divider"></div>
             <legend>LINKS</legend>
             {#if pLinks != null}
                 {#each pLinks as link}
                     <input type="text" bind:value={link} />
                 {/each}
+                <div class="icons">
+                    {#if pLinks.length <= 4}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" on:click={() => AddFields("links")}>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                        </svg>
+                    {/if}
+                    {#if pLinks.length >= 1}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" on:click={() => RemoveFields("links")}>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+                        </svg>
+                    {/if}
+                </div>
             {/if}
             <button on:click={() => EditProject()}>Update</button>
         </div>
