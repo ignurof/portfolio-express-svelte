@@ -14,6 +14,7 @@ const cookieParser = require('cookie-parser');
 
 const authwhitelist = require("./authwhitelist.js");
 const projectlist = require("./projectlist.js");
+const aboutcontent = require("./aboutcontent.js");
 
 // Parse cookies so they can be interacted with
 router.use(cookieParser());
@@ -84,7 +85,7 @@ router.get("/about", (req, res) => {
     // Success
     console.log("Admin/About route used");
     res.render("private/aboutadmin", {
-        
+        aboutContent: aboutcontent.GetAboutText(),
     });
 });
 
