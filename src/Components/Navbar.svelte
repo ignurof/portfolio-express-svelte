@@ -1,7 +1,7 @@
 <script>
     let name = "ignurof.xyz";
 
-    let coolQuote = "This is going to be some kind of text related to contacting me or hiring me I think.";
+    let coolQuote = "This email is currently not active while I figure out where to host my email!";
 
     let socImages = [
         "/assets/img/github.svg",

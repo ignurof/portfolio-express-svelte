@@ -6,8 +6,6 @@
     // Found in projectlist.js
     export let projectList;
 
-    export let coolQuote;
-
     // Found in projectcard.svelte
     // FIXME: NOTE TO ME: Behöver inte ha denna variabel här pga att jag exportar från projectcard och då bara behöver passa in rätt namns variabel i html <Projectcard {title}
     //let title;
@@ -24,7 +22,7 @@
 </style>
 
 <!-- I need to pass the vars into Navbar so they can be used by it, but I also need to put them here when im exporting from Navbar into this file -->
-<Navbar {coolQuote} activePage="projects"/>
+<Navbar activePage="projects"/>
 
 <main>
     <div class="project-cards">

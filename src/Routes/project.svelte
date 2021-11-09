@@ -4,10 +4,6 @@
     // Projects
     export let projectList;
 
-    // This is also found in Navbar.svelte, 
-    // so when I pass this exported var like this: <Navbar {coolQuote} /> it means I can use component nested exported var on the router in server.js
-    export let coolQuote;
-
     export let index;
     export let title;
     export let content;
@@ -125,7 +121,7 @@
     }
 </style>
 <!-- Im passing it here because I want the page to act like its still the projects page -->
-<Navbar {coolQuote} activePage="projects"/>
+<Navbar activePage="projects"/>
 
 <main>
     <div class="project-header">
