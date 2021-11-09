@@ -273,9 +273,9 @@
     }
 
     input{
-        border:0;
-        background: #1D2E35;
-        color: #EDF7F7;
+        border: 1px solid #a2a8a8;
+        background: #c0c7c7;
+        color: rgb(33, 33, 33);
         border-radius: .3em;
         font-size: .8em;
         height: 2em;

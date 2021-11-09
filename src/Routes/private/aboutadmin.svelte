@@ -32,9 +32,10 @@
     }
 
     fieldset{
-        border: 0;
+        border: 1px solid #a2a8a8;
         border-radius: .3em;
-        background: #1D2E35;
+        background: #c0c7c7;
+        color: rgb(33, 33, 33);
         height: 10em;
         padding: 1em;
     }
