@@ -27,7 +27,7 @@ router.use(express.json());
 
 // middleware that is specific to this router
 router.use((req, res, next) => {
-    console.log('Ran the Adminpanel router @ Time: ', Date.now());
+    console.log('ADMIN page @ Time: ', Date.now());
     next();
 });
 
