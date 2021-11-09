@@ -9,8 +9,6 @@ const GetAboutText = () => {
 }
 
 const UpdateAboutText = (inputObj) => {
-    console.log(inputObj);
-
     aboutText = inputObj[0].aboutText;
     
     let about = [{

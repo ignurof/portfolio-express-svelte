@@ -1,10 +1,6 @@
-// TODO: Till på morgonen, gör en adminsida så man kan skapa, redigera och ta bort projekt från listan, listan ska uppdateras dynamiskt av det
-// Kontaktformulär och en adminsida som läser in alla meddelanden
-// TODO: Kom på ett sätt att skapa typ filehandler.js som tar hand om fs.stat, writefile och readfile sakerna, med params som avgör vilken fil det blir
 const filehandler = require("./filehandler.js");
 
 // Projectlist strucutre
-// { projectList: [] }
 let projectList = [];
 
 const GetSpecificProject = (index) => {
@@ -15,6 +11,7 @@ const GetProjectList = () => {
     return projectList;
 }
 
+// Since this just replaces the old list with the new one, I dont need to specify anything
 const UpdateProjectList = (newList) => {
     projectList = newList;
 }
@@ -48,6 +45,9 @@ const EditProject = (index, title, content, tags, images, links) => {
         updatedProject.tags = tags;
         updatedProject.images = images;
         updatedProject.links = links;
+
+        // Update projectlist.json using the filehandler
+        filehandler.GenerateFile("projectlist", projectList);
     });
 }
 
@@ -57,9 +57,9 @@ const DeleteProject = (index) => {
     if (index > -1) {
         projectList.splice(index, 1);
     }
-    //console.log(projectList);
 
-    //UpdateProjectList(newProjectList);
+    // Update projectlist.json using the filehandler
+    filehandler.GenerateFile("projectlist", projectList);
 }
 
 module.exports = {

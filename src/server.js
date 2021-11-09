@@ -77,6 +77,6 @@ app.listen(config.port, async() => {
     let aboutResult = await filehandler.ReadFile("about");
     aboutcontent.UpdateAboutText(aboutResult);
 
-    //let projectsResult = await filehandler.ReadFile("projectlist");
-    //projectlist.UpdateProjectList(projectsResult);
+    let projectsResult = await filehandler.ReadFile("projectlist");
+    projectlist.UpdateProjectList(projectsResult);
 });
