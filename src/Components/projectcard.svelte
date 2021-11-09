@@ -1,9 +1,9 @@
 <script>
-    /* Assets dir, aka build/routes/ - Note: I have to prefix it with /assets/ */
-    let imgSrc = "/assets/img/testimg.jpg";
-
     export let title = "default title";
     export let index = 99;
+    export let images = [];
+
+    let imgSrc = "/assets/img/" + images[0];
 
     let summary = "This small summary should be the first X amount of characters pulled from the start of contentString array.";
 
