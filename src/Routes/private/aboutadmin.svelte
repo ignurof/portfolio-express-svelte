@@ -4,9 +4,13 @@
     export let aboutContent;
 
     const UpdateAbout = async() => {
-        let apiUrl = `/admin/about/edit/${aboutContent}`;
+        let apiUrl = "/admin/about/edit";
         let response = await fetch(apiUrl, {
-            method: "POST"
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify([{"aboutText": aboutContent}])
         });
 
         if(!response.ok){
