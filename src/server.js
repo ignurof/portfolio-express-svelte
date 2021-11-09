@@ -6,7 +6,6 @@ const config = require("../config");
 
 // Site content
 const filehandler = require("./filehandler.js");
-const quotegenerator = require("./quotegenerator.js");
 const aboutcontent = require("./aboutcontent.js");
 const projectlist = require("./projectlist.js");
 
@@ -50,7 +49,7 @@ app.get("/", (req, res, next) => {
     // Projects page should be default
     res.render("projects", {
         // Props here
-        coolQuote: quotegenerator.TheQuote(),
+        coolQuote: "Placeholder text for quote area",
         projectList: projectlist.GetProjectList(),
     });
 });
