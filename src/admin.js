@@ -12,6 +12,7 @@ const bcrypt = require("bcrypt");
 const md5 = require("blueimp-md5");
 const cookieParser = require('cookie-parser');
 
+const authblocklist = require("./authblocklist.js");
 const authwhitelist = require("./authwhitelist.js");
 const projectlist = require("./projectlist.js");
 const aboutcontent = require("./aboutcontent.js");
@@ -36,14 +37,25 @@ router.get('/', (req, res) => {
     res.redirect("/admin/about");
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", async(req, res) => {
     let responseObj = {
         "status": "",
         "canAdmin": "NO"
     };
 
+    // Block user from login attempt if they have failed too many times
+    try{
+        let blockedStatus = await authblocklist.IsUserBlocked(req.body.userName);
+        console.log(blockedStatus);
+    } catch(e){
+        console.error("BLOCKED LOGIN ATTEMPT: " + e);
+    }
+
     // Hardcore admin username
     if(req.body.userName != "troll"){
+        // Make sure hacker has blocked username now ( I need this here because wrong username early returns )
+        authblocklist.AddToBlock(req.body.userName);
+
         responseObj.status = "invaliduser";
         // Early return if username is not correct
         return res.json(responseObj);
@@ -53,7 +65,11 @@ router.post("/login", (req, res) => {
     bcrypt.compare(req.body.ePassWord, process.env.SECUREHASH, (err, result) => {
         if(err) return console.error("ERROR! There is no SECUREHASH.");
 
+        // Invalid password check
         if(!result){
+            // If hacker pass the username check, it should block if pw is incorrect
+            authblocklist.AddToBlock(req.body.userName);
+
             // Early return from the method if error
             responseObj.status = "invalidpw";
             console.error("Invalid login attempt!");
@@ -61,6 +77,7 @@ router.post("/login", (req, res) => {
         }
 
         // We only end up here if successfull login
+        authblocklist.RemoveUserBlock(req.body.userName);
         responseObj.status = "OK";
         // Reset authWhitelist so that this new user is the only allowed auth. TODO: Should be timer based instead but since only one admin account is a thing, this is ok
         authwhitelist.ResetAuthList();

@@ -7,7 +7,6 @@
     let userName = "";
     let passWord = "";
 
-    // TODO: Gör så att den skickar värdena till server som då kollar om dom stämmer och isåfall skickar användaren rätt
     const AttemptLogin = async() => {
         // Verify integrity of input first before sending data
         let canSendData = true;
@@ -59,20 +58,9 @@
             if(result.status === "OK"){
                 return location.href = "/admin/about/";
             }
-
-            // Early returns should make it so we dont end up here unless 100% success
-            console.log(document.cookie);
         } else{
             console.error("Could not send data!");
         }
-    }
-
-    const GetCookie = () => {
-        let cookies = document.cookie;
-        let cookieObj = cookies.split('=');
-        // auth=stringhere; cookie2=string;
-        console.log(cookieObj[1]);
-        return cookieObj[1];
     }
 
     // Reactivity
