@@ -49,13 +49,9 @@
             let result = await response.json();
             console.log(result);
 
-            if(result.status === "invalidpw"){
-                return alert("Incorrect password!");
-            }
-            if(result.status === "invaliduser"){
-                return alert("User does not exist!");
-            }
-            if(result.status === "OK"){
+            if(result.status === "FAIL"){
+                return location.href = "/";
+            } else if(result.status === "OK"){
                 return location.href = "/admin/about/";
             }
         } else{

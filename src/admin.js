@@ -16,6 +16,7 @@ const authblocklist = require("./authblocklist.js");
 const authwhitelist = require("./authwhitelist.js");
 const projectlist = require("./projectlist.js");
 const aboutcontent = require("./aboutcontent.js");
+const { response } = require('express');
 
 // Parse cookies so they can be interacted with
 router.use(cookieParser());
@@ -46,47 +47,42 @@ router.post("/login", async(req, res) => {
     // Block user from login attempt if they have failed too many times
     try{
         let blockedStatus = await authblocklist.IsUserBlocked(req.body.userName);
-        console.log(blockedStatus);
     } catch(e){
+        // This is what happens when blockedStatus is true, aka UserIsBlocked
         console.error("BLOCKED LOGIN ATTEMPT: " + e);
+        // Send the value so frontend can use it
+        responseObj.status = "FAIL";
     }
 
-    // Hardcore admin username
-    if(req.body.userName != "troll"){
-        // Make sure hacker has blocked username now ( I need this here because wrong username early returns )
+    let matchUsername = await bcrypt.compare(req.body.userName, process.env.USERNAME);
+    let matchPassword = await bcrypt.compare(req.body.ePassWord, process.env.SECUREHASH);
+
+    // Invalid password check
+    if(!matchPassword || !matchUsername){
+        // If hacker pass the username check, it should block if pw is incorrect
         authblocklist.AddToBlock(req.body.userName);
 
-        responseObj.status = "invaliduser";
-        // Early return if username is not correct
+        // Early return response to user if failed check
+        console.error("Invalid login attempt!");
         return res.json(responseObj);
     }
 
-    // Compare the client password with the secure hash to see if password is correct
-    bcrypt.compare(req.body.ePassWord, process.env.SECUREHASH, (err, result) => {
-        if(err) return console.error("ERROR! There is no SECUREHASH.");
-
-        // Invalid password check
-        if(!result){
-            // If hacker pass the username check, it should block if pw is incorrect
-            authblocklist.AddToBlock(req.body.userName);
-
-            // Early return from the method if error
-            responseObj.status = "invalidpw";
-            console.error("Invalid login attempt!");
-            return res.json(responseObj);
-        }
-
-        // We only end up here if successfull login
+    // If successful login on blocked username, unblock it
+    if(responseObj.status === "FAIL"){
+        console.log("USER UNBLOCKED: " + req.body.userName);
         authblocklist.RemoveUserBlock(req.body.userName);
-        responseObj.status = "OK";
-        // Reset authWhitelist so that this new user is the only allowed auth. TODO: Should be timer based instead but since only one admin account is a thing, this is ok
-        authwhitelist.ResetAuthList();
-        // Adds the user to authWhitelist
-        responseObj.canAdmin = GenerateTimeStamp();
-        console.log("Successfull login attempt! :)");
-        res.cookie("auth", responseObj.canAdmin);
-        res.json(responseObj);
-    });
+    }
+
+    // We only end up here if successfull login
+    // Set new status, overwriting possible failed status
+    responseObj.status = "OK";
+    // Reset authWhitelist so that this new user is the only allowed auth. TODO: Should be timer based instead but since only one admin account is a thing, this is ok
+    authwhitelist.ResetAuthList();
+    // Adds the user to authWhitelist
+    responseObj.canAdmin = GenerateTimeStamp();
+    console.log("Successfull login attempt! :)");
+    res.cookie("auth", responseObj.canAdmin);
+    res.json(responseObj);
 });
 
 router.get("/about", (req, res) => {

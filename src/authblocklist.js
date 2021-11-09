@@ -7,12 +7,11 @@ const AddToBlock = (username) => {
 const IsUserBlocked = (username) => {
     let blockedStatus = false;
     let blockAmount = 0;
-    //TODO: This could possible be a .map instead
+
     blockList.map((x) => {
         if(x != username) return;
 
         blockAmount++;
-        //console.log(blockAmount);
     });
 
     return new Promise((resolve, reject) => {
