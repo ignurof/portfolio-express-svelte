@@ -16,7 +16,6 @@ const authblocklist = require("./authblocklist.js");
 const authwhitelist = require("./authwhitelist.js");
 const projectlist = require("./projectlist.js");
 const aboutcontent = require("./aboutcontent.js");
-const { response } = require('express');
 
 // Parse cookies so they can be interacted with
 router.use(cookieParser());
@@ -54,7 +53,11 @@ router.post("/login", async(req, res) => {
         responseObj.status = "FAIL";
     }
 
-    let matchUsername = await bcrypt.compare(req.body.userName, process.env.USERNAME);
+    let matchUsername = false;
+    if(req.body.userName === "ignu"){
+        matchUsername = true;
+    }
+
     let matchPassword = await bcrypt.compare(req.body.ePassWord, process.env.SECUREHASH);
 
     // Invalid password check
@@ -197,9 +200,10 @@ router.post("/projects/add", (req, res) => {
 })
 
 // Generate md5 hash from hardcore password and then encrypt and store on servervar
-/* FIXME: Only used for generating the pw hash (password -> md5 -> bcrypt)
-const GenerateAdminPassword = () => {
-    let myPw = "";
+// Used for generating the pw hash (password -> md5 -> bcrypt)
+// Also used it for username
+/*const GenerateAdminPassword = () => {
+    let myPw = "ignu";
     // Encrypt with md5 to match client
     myPw = md5(myPw);
 
@@ -208,10 +212,9 @@ const GenerateAdminPassword = () => {
     bcrypt.hash(myPw, 10, (err, hash) => {
         // Store the hash somewhere
         console.log(hash);
-        secureHash = hash;
     });
-}
-*/
+}*/
+
 
 // Generates a auth timestamp that can be used to verify access to admin routes
 const GenerateTimeStamp = () => {

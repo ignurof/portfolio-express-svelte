@@ -26,7 +26,7 @@
         userName = validator.escape(userName);
         passWord = validator.escape(passWord);
 
-        // Encrypt password
+        // Encrypt password and username
         let ePassWord = md5(passWord);
 
         // Store user details inside JSON Object
