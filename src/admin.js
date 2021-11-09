@@ -89,7 +89,7 @@ router.get("/about", (req, res) => {
     });
 });
 
-router.post("/about/edit/:aboutString", (req, res) => {
+router.post("/about/edit", (req, res) => {
     if(!VerifyUserAuth(req.cookies.auth)){
         // False
         console.error("Failed Admin/About POST route attempt");
@@ -100,8 +100,8 @@ router.post("/about/edit/:aboutString", (req, res) => {
     }
 
     // Success
-    console.log("Admin/About POST route used: " + req.params.aboutString);
-    aboutcontent.UpdateAboutText(req.params.aboutString);
+    console.log("Admin/About POST route used");
+    aboutcontent.UpdateAboutText(req.body);
 });
 
 router.get("/projects", (req, res) => {
