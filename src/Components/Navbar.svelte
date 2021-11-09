@@ -1,7 +1,7 @@
 <script>
     let name = "ignurof.xyz";
 
-    export let coolQuote;
+    let coolQuote = "This is going to be some kind of text related to contacting me or hiring me I think.";
 
     let socImages = [
         "/assets/img/github.svg",

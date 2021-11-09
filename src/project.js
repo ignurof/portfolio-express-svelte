@@ -21,7 +21,6 @@ router.get("/:index", (req, res) => {
     }
     // Render the page
     res.render("project", {
-        coolQuote: "Placeholder text here",
         projectList: projectlist.GetProjectList(),
         index: indexValue,
         title: specProject.title,

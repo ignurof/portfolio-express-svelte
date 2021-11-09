@@ -49,7 +49,6 @@ app.get("/", (req, res, next) => {
     // Projects page should be default
     res.render("projects", {
         // Props here
-        coolQuote: "Placeholder text for quote area",
         projectList: projectlist.GetProjectList(),
     });
 });

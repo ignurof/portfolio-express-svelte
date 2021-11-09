@@ -7,7 +7,6 @@ const aboutcontent = require("./aboutcontent.js");
 router.get('/', (req, res) => {
     res.render("about", {
         // Props here
-        coolQuote: "Placeholder quote text here",
         about: aboutcontent.GetAboutText(),
     });
 });
