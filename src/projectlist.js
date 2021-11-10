@@ -26,10 +26,11 @@ const AddProject = (title, content, tags, images, links) => {
         images,      // Array
         links       // Array
     };
-
+    
     // Push the new project to projectList servervar
-    projectList.push(projectTemplate);
-
+    // Place it at the top
+    projectList.unshift(projectTemplate);
+    
     // Update projectlist.json using the filehandler
     filehandler.GenerateFile("projectlist", projectList);
 }
