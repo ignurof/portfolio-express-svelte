@@ -4,7 +4,9 @@ const filehandler = require("./filehandler.js");
 let projectList = [];
 
 const GetSpecificProject = (index) => {
-    return projectList[index];
+    // Reverse to fit frontends version, map it and reverse back to normal
+    let reverseList = projectList.reverse();
+    return reverseList[index];
 }
 
 const GetProjectList = () => {

@@ -11,6 +11,21 @@
     export let images;
     export let links;
 
+    let linkList = [];
+
+    const ParseLinks = () => {
+        // For every item in links
+        for(let x = 0; x < links.length; x++){
+            // Parse the contents by splitting up the string into an array, separated by the hashtag
+            let newArray = links[x].split("#");
+            let newObject = {
+                "href": newArray[0],
+                "text": newArray[1]
+            }
+            linkList.push(newObject);
+        }
+    }
+
     let newHref;
 
     // The projectCards are displayed in reverse order so going back would be going up
@@ -30,10 +45,13 @@
         }
         */
         // Loops around if index goes out of bounds ( go back if current index is less than maxIndex (raise number), go forward if currentIndex is greater than max index AKA larger number (lower number))
-        let newIndex = (previous) ? (index < maxIndex ? ++index : 0) : (index == 0 ? maxIndex : --index);
+        let newIndex = (previous) ? (index == 0 ? maxIndex : --index) : (index < maxIndex ? ++index : 0);
         let apiUrl = `/project/${newIndex}`;
         newHref = apiUrl;
     }
+
+
+    $: links, ParseLinks();
 </script>
 
 <style>
@@ -141,7 +159,7 @@
         </a>
     </div>
     <div class="links">
-        {#each links as { href, text }}
+        {#each linkList as { href, text }}
             <a {href} target="_blank">{text}</a>
         {/each}
     </div>
