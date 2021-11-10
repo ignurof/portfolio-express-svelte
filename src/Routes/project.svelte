@@ -32,7 +32,6 @@
     const ChangeProject = (previous) => {
         // Simple If-Else statement is better made with this ternary operator
         let maxIndex = projectList.length - 1;
-        console.log(maxIndex);
         // This is a ternary operator that replace if-else statement which looks like this:
         /* If(previous){
             if(index < maxIndex){
@@ -45,7 +44,7 @@
         }
         */
         // Loops around if index goes out of bounds ( go back if current index is less than maxIndex (raise number), go forward if currentIndex is greater than max index AKA larger number (lower number))
-        let newIndex = (previous) ? (index == 0 ? maxIndex : --index) : (index < maxIndex ? ++index : 0);
+        let newIndex = (previous) ? (index == 0 ? maxIndex : --index) : (index == maxIndex ? 0 : ++index);
         let apiUrl = `/project/${newIndex}`;
         newHref = apiUrl;
     }
