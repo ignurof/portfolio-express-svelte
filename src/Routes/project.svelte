@@ -44,7 +44,7 @@
         }
         */
         // Loops around if index goes out of bounds ( go back if current index is less than maxIndex (raise number), go forward if currentIndex is greater than max index AKA larger number (lower number))
-        let newIndex = (previous) ? (index == 0 ? maxIndex : --index) : (index == maxIndex ? 0 : ++index);
+        let newIndex = (previous) ? (index > 0 ? --index : maxIndex) : (index < maxIndex ? ++index : 0);
         let apiUrl = `/project/${newIndex}`;
         newHref = apiUrl;
     }
