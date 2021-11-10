@@ -23,7 +23,7 @@
         color: black;
         box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.25);
         border-radius: .3em;
-        min-width: 33%; /* ONE card = 33% area of parent container aka projects */
+        min-width: 100%; /* ONE card = 33% area of parent container aka projects */
         min-height: 18em;
         display: flex;
         flex-direction: column;
