@@ -2,10 +2,12 @@
     export let title = "default title";
     export let index = 99;
     export let images = [];
+    export let content;
 
     let imgSrc = "/assets/img/" + images[0];
 
-    let summary = "This small summary should be the first X amount of characters pulled from the start of contentString array.";
+    // Split content up into array based on whitespace, splice out the rest of array after third word, join array items together with whitespace and add ... to end string
+    let summary = content.split(" ").splice(0, 3).join(" ") + "...";
 
     //let tags = ["C#", "Unity"];
 
@@ -21,9 +23,8 @@
         color: black;
         box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.25);
         border-radius: .3em;
-        margin: .4em; /* grid gap */
-        width: 33%; /* ONE card = 33% area of parent container aka projects */
-        height: 100%;
+        min-width: 33%; /* ONE card = 33% area of parent container aka projects */
+        min-height: 10em;
         display: flex;
         flex-direction: column;
     }

@@ -1,7 +1,20 @@
 <script>
+    import { onMount } from 'svelte';
     import Navbaradmin from "../../components/private/navbaradmin.svelte"
 
     export let projectList;
+
+    let reversedList = [];
+
+    // Reverses the list before everything else
+    onMount(async () => {
+		reversedList = projectList.reverse();
+	});
+
+    const RefreshList = () => {
+        reversedList = [];
+        reversedList = projectList.reverse();
+    }
 
     let confirmWindow = false;
     let deleteTarget;
@@ -33,6 +46,7 @@
         let result = await response.json();
         // Update projectList
         projectList = result.projectList;
+        RefreshList();
         // Remove togglewindow
         ToggleConfirmWindow();
     }
@@ -68,6 +82,7 @@
         let result = await response.json();
         // Update projectList
         projectList = result.projectList;
+        RefreshList();
     }
 
     const AddProject = async() => {
@@ -99,6 +114,7 @@
         let result = await response.json();
         // Update projectList
         projectList = result.projectList;
+        RefreshList();
     }
 
     // Declare them so they are correct at runtime
@@ -345,7 +361,7 @@
 
     <div class="project-admin">
         <div class="project-list">
-            {#each projectList as {title}, i}
+            {#each reversedList as {title}, i}
                 <div class="project-item">
                     <h4 on:click={() => SetProjectData(i)}>{title}</h4>
                     <button on:click={() => SetDeleteTarget(i)}>X</button>

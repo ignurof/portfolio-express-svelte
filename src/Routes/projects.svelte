@@ -1,17 +1,25 @@
 <script>
+    import { onMount } from 'svelte';
     import Projectcard from "../components/projectcard.svelte";
 
     import Navbar from "../components/navbar.svelte";
 
     // Found in projectlist.js
     export let projectList;
+
+    let reversedList = [];
+
+    // Reverses the list before everything else
+    onMount(async () => {
+		reversedList = projectList.reverse();
+	});
 </script>
 
 <style>
     .project-cards{
-        display: flex;
-        flex-direction: row-reverse; /* Descending Order */
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 1em;
     }
 </style>
 
@@ -20,9 +28,9 @@
 
 <main>
     <div class="project-cards">
-        {#each projectList as { title, content, tags, images }, index}
+        {#each reversedList as { title, content, tags, images }, index}
             <!--{i} Prints out the current index -->
-            <Projectcard {index} {title} {images} />
+            <Projectcard {index} {title} {images} {content} />
         {/each}
     </div>
 </main>
